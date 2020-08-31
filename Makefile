@@ -1,0 +1,61 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/08/17 17:19:48 by kcedra            #+#    #+#              #
+#    Updated: 2020/08/27 18:00:35 by kcedra           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC = gcc
+
+NAME = cub3d
+
+HEADER = cub3d.h
+
+LIBFT_HEADER = libft/libft.h
+
+LIBFT_MAKE = Makefile
+
+LIBFT = libft.a
+
+LIBFT_DIR = libft/
+
+MLX_DIR = mlx/
+
+MLX = libmlx.a
+
+SOURCES = test_window.c parser.c parse_textures.c utils.c itoabase.c parse_colors.c \
+errors_management.c
+
+O_FILES = $(SOURCES:.c=.o)
+
+%.o: %.c $(HEADER)
+	$(CC) $(FLAGS) -Imlx -c $< -o $@
+
+all: $(NAME)
+
+$(NAME): $(O_FILES)
+	make -C $(LIBFT_DIR)
+	cp $(LIBFT_DIR)$(LIBFT) .
+	make -C $(MLX_DIR)
+	cp $(MLX_DIR)$(MLX) .
+	$(CC) $(FLAGS) $(O_FILES) -L. -lft 	-L. -lmlx \
+	-framework OpenGL -framework AppKit -o cub3d
+
+clean:
+	rm -f *.o
+	make -C $(LIBFT_DIR) clean
+	make -C $(MLX_DIR) clean
+
+fclean: clean
+	rm -f $(NAME)
+	rm -f *.a
+	make -C $(LIBFT_DIR) fclean
+	make -C $(MLX_DIR) clean
+	rm -f mlx/libmlx.a
+
+re: fclean all

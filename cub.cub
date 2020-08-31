@@ -1,0 +1,12 @@
+R 1920  1080 
+
+NO Finally_something_works
+WE It's_west_texture
+SO It's_south_texture
+EA It's_east_texture 
+
+S It's_sprite_texture
+
+F 255,0,0
+
+C 255,0,0
