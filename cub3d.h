@@ -6,7 +6,7 @@
 /*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:25:26 by kcedra            #+#    #+#             */
-/*   Updated: 2020/08/27 19:36:12 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/03 16:39:33 by kcedra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <math.h>
 #include "mlx/mlx.h"
 #include "libft/libft.h"
+
 #include "stdio.h"
 
 typedef struct s_pars
@@ -42,10 +43,17 @@ typedef struct  s_data {
     int         endian;
 }               t_data;
 
-typedef struct  s_vars {
-    void        *mlx;
-    void        *win;
-}               t_vars;
+typedef struct	s_vars {
+	void        *mlx;
+	void        *win;
+}				t_vars;
+
+typedef struct	s_player
+{
+	size_t		x_coord;
+	size_t		y_coord;
+	size_t		pov;
+}				t_player;
 
 int		west_texture(char  *text, t_pars *pars, int i);
 int		east_texture(char  *text, t_pars *pars, int i);
@@ -58,11 +66,14 @@ int		args_error_management(char *text, t_pars *pars);
 int		file_error_management(int gnl, char *filename);
 int		check_validity(t_pars *pars);
 int		atoi_color_base_16(char *color);
+int	    ft_abs(int a);
 int		itoa_color_base_16(char *text, int i, t_pars *pars, char type);
 char	*ft_itoabase(long long int nb, char type);
 t_pars	parser(char *filename);
 void	text_join_n(char **text, char **line, int gnl);
 void	pars_init(t_pars *pars);
 void	print_map(char **map);
+void	draw_map(t_vars *vars, t_data *img, char **map);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

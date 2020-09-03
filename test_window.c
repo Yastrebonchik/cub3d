@@ -6,7 +6,7 @@
 /*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:33 by kcedra            #+#    #+#             */
-/*   Updated: 2020/08/27 18:23:41 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/08/31 20:12:12 by kcedra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ int main(int argc, char **argv)
     pars = parser(argv[1]);
     if (pars.flag == 1)
         return (0);
-  	printf("Params flag = %d\n", pars.flag);
-    ft_putendl_fd(pars.ceiling_color, 1);
+  	//printf("Params flag = %d\n", pars.flag);
+    //ft_putendl_fd(pars.ceiling_color, 1);
+    printf("Res_x = %d\nRes_y = %d\nNorth_texture - %s\nSouth_texture - %s\nEast_texture - %s\nWest_texture - %s\nSprite_texture - %s\nFloor_color = %s\nCeiling_color= %s\n", 
+	pars.res_x, pars.res_y, pars.north_texture, pars.south_texture, pars.east_texture, pars.west_texture, pars.sprite_texture, pars.floor_color, pars.ceiling_color);
+    print_map(pars.map);
     i = 800;
     k = 600;
     vars.mlx = mlx_init();
@@ -56,17 +59,18 @@ int main(int argc, char **argv)
 	color = atoi_color_base_16(pars.ceiling_color);
     printf("Atoi result = %d\n", color);
 	//printf("Red color in mlx config %d\n", 0x0000FFFF);
-	while (i < 1000)
-    {
-        j = 400;
-        while (j < k)
-        {
-            my_mlx_pixel_put(&img, i, j, color);
-            j++;
-        }
-        //k--;
-        i++;
-    }
+	// while (i < 1000)
+    // {
+    //     j = 400;
+    //     while (j < k)
+    //     {
+    //         my_mlx_pixel_put(&img, i, j, color);
+    //         j++;
+    //     }
+    //     //k--;
+    //     i++;
+    // }
+    draw_map(&vars, &img, pars.map);
     mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
     mlx_key_hook(vars.win, close_win, &vars);
     mlx_loop(vars.mlx);

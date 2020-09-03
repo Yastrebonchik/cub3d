@@ -6,7 +6,7 @@
 /*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 17:58:07 by kcedra            #+#    #+#             */
-/*   Updated: 2020/08/27 20:03:12 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/08/31 18:31:26 by kcedra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,26 +136,12 @@ int			args_error_management(char *text, t_pars *pars)
 			i++;
 		flag = detect_function(text, i, pars);
 		if (flag == 1)
-		{
-			//printf("res_x = %d\nres_y = %d\nnorth_texture - %s\nsouth_texture - %s\neast_texture - %s\nwest_texture - %s\nsprite_texture - %s\nfloor_color = %s\nceiling_color= %s\n", 
-	//pars->res_x, pars->res_y, pars->north_texture, pars->south_texture, pars->east_texture, pars->west_texture, pars->sprite_texture, pars->floor_color, pars->ceiling_color);
 			return (1);
-		}
 		while (text[i] != '\0' && text[i] != '\n')
 			i++;
 		if (check_validity(pars) == 1)
-		{
-			printf("I'm here\n");
 			break;
-		}
 	}
-	printf("res_x = %d\nres_y = %d\nnorth_texture - %s\nsouth_texture - %s\neast_texture - %s\nwest_texture - %s\nsprite_texture - %s\nfloor_color = %s\nceiling_color= %s\n", 
-	pars->res_x, pars->res_y, pars->north_texture, pars->south_texture, pars->east_texture, pars->west_texture, pars->sprite_texture, pars->floor_color, pars->ceiling_color);
-	// if (check_validity(pars) != 1)
-	// {
-	// 	printf("I'm here\n");
-	// 	return (1);
-	// }
 	while (text[i] == '\n' || text[i] == ' ')
 		i++;
 	if (text[i] != '1')
@@ -163,10 +149,6 @@ int			args_error_management(char *text, t_pars *pars)
 		ft_putendl_fd("Error\nNo map in file", 1);
 		return (1);
 	}
-	//printf("%s\n", &(text[i]));
 	pars->map = ft_split(&(text[i]), '\n');
-	print_map(pars->map);
-	if (pars->map == NULL)
-		flag = 1;
-	return (flag);
+	return ((pars->map == NULL) ? 1 : flag);
 }

@@ -6,7 +6,7 @@
 /*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:29:24 by kcedra            #+#    #+#             */
-/*   Updated: 2020/08/27 19:43:43 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/03 16:39:37 by kcedra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,13 @@ int			check_validity(t_pars *pars)
 		return (1);
 	else
 		return (0);	
+}
+
+int			ft_abs(int a)
+{
+	if (a < 0)
+		a = a * (-1);
+	return (a);
 }
 
 void		print_map(char **map)
