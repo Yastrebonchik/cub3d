@@ -6,7 +6,7 @@
 /*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 21:03:45 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/04 17:46:52 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/04 18:58:49 by kcedra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ double		horizontal_ray_tracer(double x_pos, int y_pos, double ray_angle, char **
 			x_cur_pos += ft_abs(y_pos - y_cur_pos) * (tan(ray_angle));
 			distance += ft_abs(y_pos - y_cur_pos) / (sin(ray_angle));
 		}
-		if (y_cur_pos != y_pos)
+		if (y_cur_pos != y_pos || y_pos == 0)
 			line++;
 		column += column_counter(&x_pos, x_cur_pos, ray_angle);
 		while(map[line][column] != '1')
@@ -123,33 +123,37 @@ double		horizontal_ray_tracer(double x_pos, int y_pos, double ray_angle, char **
 			column += column_counter(&x_pos, x_cur_pos, ray_angle);
 		}
 	}
-	else if (ray_angle == 3 * M_PI / 2)
+	else if (ray_angle == 3 * M_PI_2)
 	{
+		printf("I'm here\n");
 		while (y_cur_pos % 64 != 0)
 			y_cur_pos--;
 		distance += ft_abs(y_cur_pos - y_pos);
+		printf("Map line = %d & Map column = %d\n", line, column);
+		printf("Distance = %f\n", distance);
 		if (y_cur_pos != y_pos)
 			line--;
 		while(map[line][column] != '1')
 		{
+			printf("Map line = %d & Map column = %d\n", line, column);
 			y_cur_pos -= 64;
 			distance += 64;
+			line--;
 		}
-		line--;
 	}
-	else if (ray_angle == M_PI / 2)
+	else if (ray_angle == M_PI_2)
 	{
 		while (y_cur_pos % 64 != 0)
 			y_cur_pos++;
 		distance += ft_abs(y_cur_pos - y_pos);
-		if (y_cur_pos != y_pos)
+		if (y_cur_pos != y_pos || y_pos == 0)
 			line++;
 		while(map[line][column] != '1')
 		{
 			y_cur_pos += 64;
 			distance += 64;
+			line++;
 		}
-		line++;
 	}
 	return (distance);
 }

@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vertical_raytracer.c                               :+:      :+:    :+:   */
+/*   vertical_raycaster.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 16:32:39 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/04 17:46:59 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/04 19:29:28 by kcedra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+//Убрал ифы для того чтобы старт отсчета при появлении был слева снизу
 static int	line_counter(double *y_pos, double y_cur_pos, double ray_angle)
 {
 	int		result;
@@ -45,7 +46,7 @@ static int	line_counter(double *y_pos, double y_cur_pos, double ray_angle)
 	return (result);
 }
 
-double		vertical_ray_tracer(int x_pos, double y_pos, double ray_angle, char **map, int line, int column)
+double		vertical_raycaster(int x_pos, double y_pos, double ray_angle, char **map, int line, int column)
 {
 	int			x_cur_pos;
 	double		y_cur_pos;
@@ -69,7 +70,7 @@ double		vertical_ray_tracer(int x_pos, double y_pos, double ray_angle, char **ma
 			y_cur_pos += ft_abs(x_pos - x_cur_pos) * (tan(M_PI - ray_angle));
 			distance += ft_abs(x_pos - x_cur_pos) / (cos(M_PI - ray_angle));
 		}
-		if (x_cur_pos != x_pos)
+		if (x_cur_pos != x_pos || x_pos == 0)
 			column--;
 		line += line_counter(&y_pos, y_cur_pos, ray_angle);
 		while(map[line][column] != '1')
@@ -128,14 +129,17 @@ double		vertical_ray_tracer(int x_pos, double y_pos, double ray_angle, char **ma
 		while (x_cur_pos % 64 != 0)
 			x_cur_pos--;
 		distance += ft_abs(x_cur_pos - x_pos);
-		if (x_cur_pos != x_pos)
+		printf("Map line = %d & Map column = %d\n", line, column);
+		printf("Distance = %f\n", distance);
+		if (x_cur_pos != x_pos || x_pos == 0)
 			column--;
 		while(map[line][column] != '1')
 		{
+			printf("Map line = %d & Map column = %d\n", line, column);
 			x_cur_pos -= 64;
 			distance += 64;
+			column--;
 		}
-		column--;
 	}
 	else if (ray_angle == 0)
 	{
@@ -148,8 +152,8 @@ double		vertical_ray_tracer(int x_pos, double y_pos, double ray_angle, char **ma
 		{
 			x_cur_pos += 64;
 			distance += 64;
+			column++;
 		}
-		column++;
 	}
 	return (distance);
 }
