@@ -6,7 +6,7 @@
 /*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:25:26 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/03 16:39:33 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/05 13:54:39 by kcedra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ int	    ft_abs(int a);
 int		itoa_color_base_16(char *text, int i, t_pars *pars, char type);
 char	*ft_itoabase(long long int nb, char type);
 t_pars	parser(char *filename);
+double  vertical_raycaster(int x_pos, double y_pos, double ray_angle, char **map, int line, int column);
+double  horizontal_raycaster(double x_pos, int y_pos, double ray_angle, char **map, int line, int column);
+double  min_of_2(double a, double b);
+void    put_image(t_data *img, double pov, t_pars pars, int line, int column, int x_pos, int y_pos, t_vars *vars);
 void	text_join_n(char **text, char **line, int gnl);
 void	pars_init(t_pars *pars);
 void	print_map(char **map);

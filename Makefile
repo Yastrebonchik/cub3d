@@ -6,7 +6,7 @@
 #    By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/17 17:19:48 by kcedra            #+#    #+#              #
-#    Updated: 2020/08/27 18:00:35 by kcedra           ###   ########.fr        #
+#    Updated: 2020/09/05 13:56:53 by kcedra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ MLX_DIR = mlx/
 MLX = libmlx.a
 
 SOURCES = test_window.c parser.c parse_textures.c utils.c itoabase.c parse_colors.c \
-errors_management.c
+errors_management.c draw_2d_map.c horizontal_raycaster.c vertical_raycaster.c put_image.c
 
 O_FILES = $(SOURCES:.c=.o)
 

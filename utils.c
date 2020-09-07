@@ -6,7 +6,7 @@
 /*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:29:24 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/03 16:39:37 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/05 13:38:14 by kcedra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,11 @@ int			ft_abs(int a)
 	if (a < 0)
 		a = a * (-1);
 	return (a);
+}
+
+double		min_of_2(double a, double b)
+{
+	return ((a < b) ? a : b);
 }
 
 void		print_map(char **map)
