@@ -12,6 +12,7 @@
 
 #ifndef CUB3D_H
 # define CUB3D_H
+# define rotation_angle M_PI / 120
 
 #include <fcntl.h>
 #include <math.h>
@@ -46,6 +47,9 @@ typedef struct  s_data {
 typedef struct	s_vars {
 	void        *mlx;
 	void        *win;
+	double 		pov;
+	t_data 		*ptr;
+	t_pars 		*pars;
 }				t_vars;
 
 typedef struct	s_player

@@ -12,38 +12,34 @@
 
 #include "cub3d.h"
 
+//Исправить магические колонки и числа на их максимально значение
 static int	column_counter(double *x_pos, double x_cur_pos, double ray_angle)
 {
 	int		result;
+	int 	fractional;
 	double	integral;
-	double	fractional;
-	//double	distance;
-	int		integral_int;
+	double	integral_int;
 
 	result = 0;
-	integral = modf(*x_pos, &fractional);
-	integral_int = (int)fractional;
+	integral = modf(*x_pos, &integral_int);
+	fractional = (int)integral_int;
 	if ((ray_angle > 0 && ray_angle < M_PI_2) || (ray_angle > 3 * M_PI_2 && ray_angle < 2 * M_PI))
 	{
-		while (integral_int + integral < x_cur_pos)
+		while (fractional + integral < x_cur_pos)
 		{
-			integral_int++;
-			if (integral_int % 64 == 0)
+			fractional++;
+			if (fractional % 64 == 0)
 				result++;
 		}
-		//if (x_cur_pos == *x_pos)
-		//	result++;
 	}
 	else if ((ray_angle > M_PI_2 && ray_angle < M_PI) || (ray_angle > M_PI && ray_angle < 3 * M_PI_2))
 	{
-		while (integral_int + integral > x_cur_pos)
+		while (fractional + integral > x_cur_pos)
 		{
-			integral_int--;
-			if (integral_int % 64 == 0)
+			fractional--;
+			if (fractional % 64 == 0)
 				result--;
 		}
-        //if (x_cur_pos != *x_pos)
-		//	result--;
 	}
 	*x_pos = x_cur_pos;
 	return (result);
@@ -110,7 +106,7 @@ double		horizontal_raycaster(double x_pos, int y_pos, double ray_angle, char **m
 		//if (y_cur_pos != y_pos || y_pos == 0)
 			line++;
 		column += column_counter(&x_pos, x_cur_pos, ray_angle);
-		while(column > 0 && line > 0 && map[line][column] != '1')
+		while(column > 0 && column <  20 && line > 0 && map[line][column] != '1')
 		{
 			y_cur_pos += 64;
 			if (ray_angle > M_PI / 2)

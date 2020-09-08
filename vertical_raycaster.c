@@ -12,39 +12,33 @@
 
 #include "cub3d.h"
 
-//Убрал ифы для того чтобы старт отсчета при появлении был слева снизу
 static int	line_counter(double *y_pos, double y_cur_pos, double ray_angle)
 {
 	int		result;
+	int 	fractional;
 	double	integral;
-	double	fractional;
-	//double	distance;
-	int		integral_int;
+	double 	integral_int;
 
 	result = 0;
-	integral = modf(*y_pos, &fractional);
-	integral_int = (int)fractional;
+	integral = modf(*y_pos, &integral_int);
+	fractional = (int)integral_int;
 	if ((ray_angle > M_PI && ray_angle < 3 * M_PI_2) || (ray_angle > 3 * M_PI_2 && ray_angle < 2 * M_PI))
 	{
-		while (integral_int + integral > y_cur_pos)
+		while (fractional + integral > y_cur_pos)
 		{
-			integral_int--;
-			if (integral_int % 64 == 0)
+			fractional--;
+			if (fractional % 64 == 0)
 				result--;
 		}
-        //if (y_cur_pos != *y_pos)
-        //    result--;
 	}
 	else if ((ray_angle > 0 && ray_angle < M_PI_2) || ( ray_angle > M_PI_2 && ray_angle < M_PI))
 	{
-		while (integral_int + integral < y_cur_pos)
+		while (fractional + integral < y_cur_pos)
 		{
-			integral_int++;
-			if (integral_int % 64 == 0)
+			fractional++;
+			if (fractional % 64 == 0)
 				result++;
 		}
-        //if (y_cur_pos != *y_pos)
-        //    result++;
 	}
 	*y_pos = y_cur_pos;
 	return (result);
@@ -77,7 +71,7 @@ double		vertical_raycaster(int x_pos, double y_pos, double ray_angle, char **map
 		//if (x_cur_pos != x_pos)
 			column--;
 		line += line_counter(&y_pos, y_cur_pos, ray_angle);
-		while(line > 0 && map[line][column] != '1')
+		while(line > 0 && line < 9 && map[line][column] != '1')
 		{
 			x_cur_pos -= 64;
 			if (ray_angle > M_PI)
@@ -111,7 +105,7 @@ double		vertical_raycaster(int x_pos, double y_pos, double ray_angle, char **map
 		//if (x_cur_pos != x_pos)
 			column++;
 		line += line_counter(&y_pos, y_cur_pos, ray_angle);
-		while(line > 0 && map[line][column] != '1')
+		while(line > 0 && line < 9 && map[line][column] != '1')
 		{
 			x_cur_pos += 64;
 			if (ray_angle > 3 * M_PI / 2)
@@ -150,7 +144,7 @@ double		vertical_raycaster(int x_pos, double y_pos, double ray_angle, char **map
 			x_cur_pos++;
 		distance += ft_abs(x_cur_pos - x_pos);
 		//if (x_cur_pos != x_pos)
-			column++;
+		column++;
 		while(map[line][column] != '1')
 		{
 			x_cur_pos += 64;
