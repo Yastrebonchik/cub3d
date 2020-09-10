@@ -6,7 +6,7 @@
 #    By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/17 17:19:48 by kcedra            #+#    #+#              #
-#    Updated: 2020/09/05 13:56:53 by kcedra           ###   ########.fr        #
+#    Updated: 2020/09/10 06:25:10 by kcedra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ CC = gcc
 NAME = cub3d
 
 HEADER = cub3d.h
+
+FLAGS = -Wall -Werror -Wextra
 
 LIBFT_HEADER = libft/libft.h
 

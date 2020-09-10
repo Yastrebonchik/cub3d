@@ -63,6 +63,7 @@ int			atoi_color_base_16(char *color)
 	int result;
 	int	digit;
 
+	result = 0;
 	decimal = 1;
 	i = ft_strlen(color) - 1;
 	while (i != -1)
@@ -125,3 +126,52 @@ void		print_map(char **map)
 		i++;
 	}
 }
+
+void		limit_counter(t_map *map)
+{
+	int 	line;
+	int 	column;
+	int 	max;
+
+	line = 0;
+	column = 0;
+	while (map->map[line] != NULL)
+	{
+		max = 0;
+		while (map->map[line][max] != '\0')
+			max++;
+		if (max > column)
+			column = max;
+		line++;
+	}
+	map->line_max = line;
+	map->column_max = column;
+}
+
+//void 		copy_map(t_pars pars, t_map *map)
+//{
+//	int		i;
+//	int 	j;
+//
+//	i = 0;
+//	while (pars.map[i] != NULL)
+//		i++;
+//	map->map = (char**)malloc(sizeof(char*) * (i + 1));
+//	map->map[i + 1] = NULL;
+//	i = 0;
+//	while (pars.map[i] != NULL)
+//	{
+//		j = 0;
+//		while (pars.map[i][j] != '\0')
+//			j++;
+//		map->map[i] = (char*)malloc(sizeof(char) * (j + 1));
+//		j = 0 ;
+//		while (pars.map[i][j] != '\0')
+//		{
+//			pars.map[i][j] = map->map[i][j];
+//			j++;
+//		}
+//		pars.map[i][j] = '\0';
+//		i++;
+//	}
+//}
