@@ -41,17 +41,17 @@ static int	get_digit(char character)
 
 	if (character == 'F')
 			digit = 15;
-		else if (character == 'E')
+	else if (character == 'E')
 			digit = 14;
-		else if (character == 'D')
+	else if (character == 'D')
 			digit = 13;
-		else if (character == 'C')
+	else if (character == 'C')
 			digit = 12;
-		else if (character == 'B')
+	else if (character == 'B')
 			digit = 11;
-		else if (character == 'A')
+	else if (character == 'A')
 			digit = 10;
-		else
+	else
 			digit = character - '0';
 	return (digit);
 }
@@ -65,7 +65,7 @@ int			atoi_color_base_16(char *color)
 
 	result = 0;
 	decimal = 1;
-	i = ft_strlen(color) - 1;
+	i = (int)ft_strlen(color) - 1;
 	while (i != -1)
 	{
 		digit = get_digit(color[i]);
@@ -103,7 +103,7 @@ int			check_validity(t_pars *pars)
 		return (0);	
 }
 
-int			ft_abs(int a)
+double		ft_abs(double a)
 {
 	if (a < 0)
 		a = a * (-1);
@@ -148,30 +148,20 @@ void		limit_counter(t_map *map)
 	map->column_max = column;
 }
 
-//void 		copy_map(t_pars pars, t_map *map)
-//{
-//	int		i;
-//	int 	j;
-//
-//	i = 0;
-//	while (pars.map[i] != NULL)
-//		i++;
-//	map->map = (char**)malloc(sizeof(char*) * (i + 1));
-//	map->map[i + 1] = NULL;
-//	i = 0;
-//	while (pars.map[i] != NULL)
-//	{
-//		j = 0;
-//		while (pars.map[i][j] != '\0')
-//			j++;
-//		map->map[i] = (char*)malloc(sizeof(char) * (j + 1));
-//		j = 0 ;
-//		while (pars.map[i][j] != '\0')
-//		{
-//			pars.map[i][j] = map->map[i][j];
-//			j++;
-//		}
-//		pars.map[i][j] = '\0';
-//		i++;
-//	}
-//}
+void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char    *dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
+int 			my_mlx_get_color(t_data *data, int x, int y)
+{
+	char 	*dst;
+	int 	color;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	color = *(unsigned int*)dst;
+	return (color);
+}

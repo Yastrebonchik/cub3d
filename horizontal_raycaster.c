@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static void position_detection(int x, int y, int *line, int *column)
+void 		position_detection(int x, int y, int *line, int *column)
 {
 	int x_cur_pos;
 	int y_cur_pos;
@@ -39,17 +39,14 @@ static int	column_counter(double *x_pos, double x_cur_pos, double ray_angle)
 {
 	int		result;
 	int 	fractional;
-	double	integral;
-	double	integral_int;
 
 	result = 0;
-	integral = modf(*x_pos, &integral_int);
-	fractional = (int)integral_int;
+	fractional = (int)(*x_pos);
 	if ((ray_angle > 0 && ray_angle < M_PI_2) || (ray_angle > 3 * M_PI_2 && ray_angle < 2 * M_PI))
 	{
 		while (fractional < x_cur_pos)
 		{
-			if (fractional % 64 == 0 && fractional != (int)integral_int)
+			if (fractional % 64 == 0 && fractional != (int)(*x_pos))
 				result++;
 			fractional++;
 		}
@@ -58,7 +55,7 @@ static int	column_counter(double *x_pos, double x_cur_pos, double ray_angle)
 	{
 		while (fractional > x_cur_pos)
 		{
-			if (fractional % 64 == 0 && fractional > x_cur_pos)
+			if (fractional % 64 == 0)
 				result--;
 			fractional--;
 		}
@@ -93,8 +90,7 @@ double		horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *m
 			x_cur_pos -= ft_abs(y_pos - y_cur_pos) / (tan(ray_angle - M_PI));
 			distance += ft_abs(y_pos - y_cur_pos) / (sin(ray_angle - M_PI));
 		}
-		//if (y_cur_pos != y_pos)
-			line--;
+		line--;
 		column += column_counter(&x_pos, x_cur_pos, ray_angle);
 		while(column > 0 && line > 0 && column < map->column_max && (map->map)[line][column] != '1')
 		{
@@ -149,15 +145,12 @@ double		horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *m
 	}
 	else if (ray_angle == 3 * M_PI_2)
 	{
-		//printf("I'm here\n");
 		while (y_cur_pos % 64 != 0)
 			y_cur_pos--;
 		distance += ft_abs(y_cur_pos - y_pos);
-		if (y_cur_pos != y_pos)
 			line--;
 		while((map->map)[line][column] != '1')
 		{
-			//printf("Map line = %d & Map column = %d\n", line, column);
 			y_cur_pos -= 64;
 			distance += 64;
 			line--;
@@ -168,7 +161,7 @@ double		horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *m
 		while (y_cur_pos % 64 != 0)
 			y_cur_pos++;
 		distance += ft_abs(y_cur_pos - y_pos);
-		//if (y_cur_pos != y_pos || y_pos == 0)
+		if (y_cur_pos != y_pos)
 			line++;
 		while((map->map)[line][column] != '1')
 		{

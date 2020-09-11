@@ -12,9 +12,9 @@
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define rotation_angle M_PI / 24
+# define rotation_angle M_PI / 30
 # define scale 64
-
+# define speed 12
 #include <fcntl.h>
 #include <math.h>
 #include "mlx/mlx.h"
@@ -43,6 +43,8 @@ typedef struct	s_data {
     int			bits_per_pixel;
     int			line_length;
     int			endian;
+    int 		height;
+    int 		width;
 }				t_data;
 
 typedef struct	s_map
@@ -64,6 +66,7 @@ typedef struct	s_vars {
 	void		*win;
 	t_player	*player;
 	t_data		*data;
+	t_data 		*cur_img;
 	t_pars		*pars;
 	t_map 		*map;
 }				t_vars;
@@ -79,17 +82,25 @@ int		args_error_management(char *text, t_pars *pars);
 int		file_error_management(int gnl, char *filename);
 int		check_validity(t_pars *pars);
 int		atoi_color_base_16(char *color);
-int	    ft_abs(int a);
 int		itoa_color_base_16(char *text, int i, t_pars *pars, char type);
 char	*ft_itoabase(long long int nb, char type);
 t_pars	parser(char *filename);
-double  vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map);//, int line, int column);
-double  horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *map);//, int line, int column);
+double  vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map);
+double  horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *map);
 double  min_of_2(double a, double b);
+double	ft_abs(double a);
 void    put_image(t_vars *vars);
+void 	move_forward(t_vars *vars);
+void 	move_backward(t_vars *vars);
+void 	move_left(t_vars *vars);
+void 	move_right(t_vars *vars);
+void 	rotate_left(t_vars *vars);
+void 	rotate_right(t_vars *vars);
 void	text_join_n(char **text, char **line, int gnl);
 void	pars_init(t_pars *pars);
 void	limit_counter(t_map *map);
+void 	position_detection(int x, int y, int *line, int *column);
+void	draw_texture(t_vars *vars, int i, int *j, int height_of_wall);
 void	print_map(char **map);
 void	draw_map(t_vars *vars, t_data *img, char **map);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

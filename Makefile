@@ -30,8 +30,9 @@ MLX_DIR = mlx/
 
 MLX = libmlx.a
 
-SOURCES = test_window.c parser.c parse_textures.c utils.c itoabase.c parse_colors.c \
-errors_management.c draw_2d_map.c horizontal_raycaster.c vertical_raycaster.c put_image.c
+SOURCES = main.c parser.c parse_textures.c utils.c itoabase.c parse_colors.c \
+errors_management.c draw_2d_map.c horizontal_raycaster.c vertical_raycaster.c put_image.c \
+hooks_manage.c draw_texture.c
 
 O_FILES = $(SOURCES:.c=.o)
 
