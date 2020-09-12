@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_raycaster.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexey <alexey@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 16:32:39 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/05 12:52:36 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/12 21:23:52 by alexey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static int	line_counter(double *y_pos, double y_cur_pos, double ray_angle)
 	return (result);
 }
 
-double		vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map)
+double		vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map);//, int *coord)
 {
 	int 		line;
 	int 		column;
-	int			x_cur_pos;
+	int		x_cur_pos;
 	double		y_cur_pos;
 	double		distance;
 
@@ -148,5 +148,6 @@ double		vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map
 			column++;
 		}
 	}
+	//*coord = floor(y_cur_pos);
 	return (distance);
 }

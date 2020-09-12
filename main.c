@@ -39,7 +39,7 @@ int			main(int argc, char **argv)
     t_pars  	pars;
     t_player 	player;
     t_map		map;
-	t_data	cur_image;
+//	t_data	cur_image;
 	//int		color;
 
 	if (argc != 2 && argc != 3)
@@ -71,10 +71,11 @@ int			main(int argc, char **argv)
     vars.data = &img;
     vars.pars = &pars;
 	vars.map = &map;
-	cur_image.img = mlx_xpm_file_to_image(vars.mlx,
-	vars.pars->north_texture, &(cur_image.width), &(cur_image.height));
-    //put_image(&vars);
-	mlx_put_image_to_window(vars.mlx, vars.win, cur_image.img, 0, 0);
+	printf("%s\n", "I'm here");
+	//cur_image.img = mlx_xpm_file_to_image(vars.mlx,
+	//vars.pars->north_texture, &(cur_image.width), &(cur_image.height));
+    put_image(&vars);
+	//mlx_put_image_to_window(vars.mlx, vars.win, cur_image.img, 0, 0);
     mlx_hook(vars.win, 2, 1L<<0, hooks_manage, &vars);
     mlx_loop(vars.mlx);
     return (0);
