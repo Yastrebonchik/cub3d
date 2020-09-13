@@ -148,5 +148,6 @@ double		vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map
 			column++;
 		}
 	}
+	map->coord = floor(y_cur_pos);
 	return (distance);
 }

@@ -32,6 +32,12 @@ static int	hooks_manage(int keycode, t_vars *vars)
 	return (0);
 }
 
+static int 	destroy_window(int keycode, t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+}
+
 int			main(int argc, char **argv)
 {
     t_vars  	vars;
@@ -64,18 +70,19 @@ int			main(int argc, char **argv)
     //printf("Atoi result = %d\n", color);
     //draw_map(&vars, &img, pars.map);
     limit_counter(&map);
-    player.pov = 0;
-    player.x_pos = 480;
+    player.pov = 3 * M_PI_2;
+    player.x_pos = 640;
     player.y_pos = 236;
     vars.player = &player;
     vars.data = &img;
     vars.pars = &pars;
 	vars.map = &map;
-	cur_image.img = mlx_xpm_file_to_image(vars.mlx,
-	vars.pars->north_texture, &(cur_image.width), &(cur_image.height));
-    //put_image(&vars);
-	mlx_put_image_to_window(vars.mlx, vars.win, cur_image.img, 0, 0);
+	//cur_image.img = mlx_xpm_file_to_image(vars.mlx,
+	//vars.pars->north_texture, &(cur_image.width), &(cur_image.height));
+    put_image(&vars);
+	//mlx_put_image_to_window(vars.mlx, vars.win, cur_image.img, 0, 0);
     mlx_hook(vars.win, 2, 1L<<0, hooks_manage, &vars);
+	mlx_hook(vars.win, 17, 0, destroy_window, &vars);
     mlx_loop(vars.mlx);
     return (0);
 }

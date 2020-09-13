@@ -34,6 +34,8 @@ void	put_image(t_vars *vars)
 		ft_putendl_fd("Error\nInvalid texture path file", 1);
 		exit(1);
 	}
+	vars->cur_img->addr = mlx_get_data_addr(vars->cur_img->img,
+	&(vars->cur_img->bits_per_pixel), &(vars->cur_img->line_length), &vars->cur_img->endian);
 	while (i < vars->pars->res_x)
 	{
 		j = 0;
@@ -48,16 +50,18 @@ void	put_image(t_vars *vars)
 		else
 			distance = min_of_2(vertical_raycaster(vars->player->x_pos, vars->player->y_pos, current_ray, vars->map),
 			horizontal_raycaster(vars->player->x_pos, vars->player->y_pos, current_ray, vars->map));
-		//printf("i = %d, distance = %f && current ray = %f\n", i, distance, current_ray);
+		//printf("i = %04d, distance = %f && current ray = %f and coord for textures = %4d\n", i, distance, current_ray, vars->map->coord);
 		distance = distance * cos(-(M_PI / 6) + i * (M_PI / 3 / vars->pars->res_x));
 		//printf("Distance = %f\n", distance);
-		height_of_wall = scale / distance * (vars->pars->res_y / (tan(M_PI / 6))) ;
+		height_of_wall = scale / distance * (vars->pars->res_x / (2 * tan(M_PI / 6))) ;
 		//color = atoi_color_base_16(pars.ceiling_color);
 		//printf("Ceiling color = %s and it's int value is = %d\n", pars.ceiling_color, color);
+		vars->map->coef = 64/(double)height_of_wall;
 		if (height_of_wall > vars->pars->res_y)
 		{
 			while (j < vars->pars->res_y)
-				my_mlx_pixel_put(vars->data, i, j++, 0x00A52A2A);
+				draw_texture(vars, i, &j, height_of_wall);
+//			my_mlx_pixel_put(vars->data, i, j++, 0x00FF0000);
 		}
 		else
 		{

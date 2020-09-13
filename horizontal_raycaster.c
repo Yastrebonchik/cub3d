@@ -170,5 +170,6 @@ double		horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *m
 			line++;
 		}
 	}
+	map->coord = floor(x_cur_pos);
 	return (distance);
 }

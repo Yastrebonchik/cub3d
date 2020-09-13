@@ -16,8 +16,18 @@ void 	draw_texture(t_vars *vars, int i, int *j, int height_of_wall)
 {
 	//int 	width;
 	//int 	height;
+	int 	cur_height;
+	int 	coord;
+	int 	color;
+	double 	coef;
+	double 	d_cur_height;
 
-	//printf("North texture is - %s\n", vars->pars->north_texture);
-	height_of_wall = 3;
-	my_mlx_pixel_put(vars->data, i, (*j)++, 0x00A52A2A);
+	coord = (vars->map->coord % 64);
+	vars->map->coef = 64/(double)height_of_wall;
+	d_cur_height = vars->map->coef * (double)(*j - ((vars->pars->res_y - height_of_wall) / 2));
+	cur_height = floor(d_cur_height);
+	//printf("%f\n", coef);
+	color = my_mlx_get_color(vars->cur_img, coord, cur_height);
+	//while (*j < (vars->pars->res_y - height_of_wall) / 2 + height_of_wall)
+	my_mlx_pixel_put(vars->data, i, (*j)++, color);
 }

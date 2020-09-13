@@ -52,6 +52,8 @@ typedef struct	s_map
 	char		**map;
 	int 		line_max;
 	int 		column_max;
+	int 		coord;
+	double 		coef;
 }				t_map;
 
 typedef struct	s_player
@@ -83,6 +85,7 @@ int		file_error_management(int gnl, char *filename);
 int		check_validity(t_pars *pars);
 int		atoi_color_base_16(char *color);
 int		itoa_color_base_16(char *text, int i, t_pars *pars, char type);
+int 	my_mlx_get_color(t_data *data, int x, int y);
 char	*ft_itoabase(long long int nb, char type);
 t_pars	parser(char *filename);
 double  vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map);
