@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_image.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 12:54:31 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/07 21:00:47 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/14 02:01:30 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,15 @@ void	put_image(t_vars *vars)
 	double 	current_ray;
 	double 	distance;
 	int		height_of_wall;
-	t_data	cur_image;
 	//int		color;
 
 	current_ray = vars->player->pov - M_PI / 6;
 	if (current_ray <= 0)
 		current_ray = 2 * M_PI + current_ray;
 	i = 0;
-	cur_image.img = mlx_xpm_file_to_image(vars->mlx,
-	vars->pars->north_texture, &(cur_image.width), &(cur_image.height));
-	vars->cur_img = &cur_image;
-	if (cur_image.img == NULL)
-	{
-		ft_putendl_fd("Error\nInvalid texture path file", 1);
-		exit(1);
-	}
-	vars->cur_img->addr = mlx_get_data_addr(vars->cur_img->img,
-	&(vars->cur_img->bits_per_pixel), &(vars->cur_img->line_length), &vars->cur_img->endian);
+	// printf("Players position x = %d\n", vars->player->x_pos);
+	// printf("Players position y = %d\n", vars->player->y_pos);
+	//printf("POV = %f\n", vars->player->pov);
 	while (i < vars->pars->res_x)
 	{
 		j = 0;
@@ -48,11 +40,12 @@ void	put_image(t_vars *vars)
 		else if ((current_ray >= 2 * M_PI - M_PI / 3 / vars->pars->res_x) || (current_ray <= 0 + M_PI / 3 / vars->pars->res_x))
 			distance = vertical_raycaster(vars->player->x_pos, vars->player->y_pos, 0, vars->map);//, line, column);
 		else
-			distance = min_of_2(vertical_raycaster(vars->player->x_pos, vars->player->y_pos, current_ray, vars->map),
-			horizontal_raycaster(vars->player->x_pos, vars->player->y_pos, current_ray, vars->map));
+			distance = min_of_2_cub(vertical_raycaster(vars->player->x_pos, vars->player->y_pos, current_ray, vars->map),
+			horizontal_raycaster(vars->player->x_pos, vars->player->y_pos, current_ray, vars->map), vars);
 		//printf("i = %04d, distance = %f && current ray = %f and coord for textures = %4d\n", i, distance, current_ray, vars->map->coord);
+		if (distance == 0)
+			break;
 		distance = distance * cos(-(M_PI / 6) + i * (M_PI / 3 / vars->pars->res_x));
-		//printf("Distance = %f\n", distance);
 		height_of_wall = scale / distance * (vars->pars->res_x / (2 * tan(M_PI / 6))) ;
 		//color = atoi_color_base_16(pars.ceiling_color);
 		//printf("Ceiling color = %s and it's int value is = %d\n", pars.ceiling_color, color);
@@ -61,15 +54,13 @@ void	put_image(t_vars *vars)
 		{
 			while (j < vars->pars->res_y)
 				draw_texture(vars, i, &j, height_of_wall);
-//			my_mlx_pixel_put(vars->data, i, j++, 0x00FF0000);
 		}
 		else
 		{
 			while (j < (vars->pars->res_y - height_of_wall) / 2)
-				my_mlx_pixel_put(vars->data, i, j++, 0x00ACAAA0);
+				my_mlx_pixel_put(vars->data, i, j++, 0x00A52A2A);
 			while (j < (vars->pars->res_y - height_of_wall) / 2 + height_of_wall)
 				draw_texture(vars, i, &j, height_of_wall);
-				//my_mlx_pixel_put(vars->data, i, j++, 0x00A52A2A);
 			//color = atoi_color_base_16(pars.floor_color);
 			//printf("Floor color = %s and it's int value is = %d\n", pars.floor_color, color);
 			while (j < vars->pars->res_y)
@@ -82,8 +73,6 @@ void	put_image(t_vars *vars)
 		else if (current_ray <= 0)
 			current_ray = 2 * M_PI + current_ray;
 	}
-	//printf("POV = %f\n", vars->player->pov);
-	//printf("Players position x = %d\n", vars->player->x_pos);
-	//printf("Players position y = %d\n", vars->player->y_pos);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
+	if (i == vars->pars->res_x)
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
 }

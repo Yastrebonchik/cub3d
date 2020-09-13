@@ -3,44 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_manage.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 18:06:18 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/11 18:06:19 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/14 01:56:54 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/*Коллизия работает не идеально, при попадании на граничное значение,
+на 64 например, происходит вылет из-за леления на бесконечность 
+предположительно (Bus error 10)*/
 void 		move_forward(t_vars *vars)
 {
-	double x;
-	double y;
-
+	double  x;
+	double  y;
+    int     line;
+    int     column;
+    
 	x = vars->player->x_pos;
 	y = vars->player->y_pos;
 	x += speed * cos(vars->player->pov);
 	y += speed * sin(vars->player->pov);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
-	vars->player->x_pos = (int)x;
-	vars->player->y_pos = (int)y;
-	put_image(vars);
+    position_detection((int)(x), (int)(y), &line, &column);
+    if (vars->map->map[line][column] != '1')
+    {
+	    vars->player->x_pos = (int)x;
+	    vars->player->y_pos = (int)y;
+    }
+    put_image(vars);
 }
 
 void 		move_backward(t_vars *vars)
 {
-	double x;
-	double y;
-
+	double  x;
+	double  y;
+    int     line;
+    int     column;
+    
 	x = vars->player->x_pos;
 	y = vars->player->y_pos;
 	x += speed * cos(vars->player->pov + M_PI);
 	y += speed * sin(vars->player->pov + M_PI);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
-	vars->player->x_pos = (int)x;
-	vars->player->y_pos = (int)y;
+    position_detection((int)(x), (int)(y), &line, &column);
+	if (vars->map->map[line][column] != '1')
+    {
+	    vars->player->x_pos = (int)x;
+	    vars->player->y_pos = (int)y;
+    }
 	put_image(vars);
 }
 
@@ -48,6 +63,8 @@ void 		move_left(t_vars *vars)
 {
 	double x;
 	double y;
+    int     line;
+    int     column;
 	double ray;
 
 	x = vars->player->x_pos;
@@ -57,8 +74,12 @@ void 		move_left(t_vars *vars)
 	y += speed * sin(ray);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
-	vars->player->x_pos = (int)x;
-	vars->player->y_pos = (int)y;
+    position_detection((int)(x), (int)(y), &line, &column);
+	if (vars->map->map[line][column] != '1')
+    {
+	    vars->player->x_pos = (int)x;
+	    vars->player->y_pos = (int)y;
+    }
 	put_image(vars);
 }
 
@@ -66,6 +87,8 @@ void 		move_right(t_vars *vars)
 {
 	double x;
 	double y;
+    int     line;
+    int     column;
 	double ray;
 
 	x = vars->player->x_pos;
@@ -75,8 +98,12 @@ void 		move_right(t_vars *vars)
 	y += speed * sin(ray);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
-	vars->player->x_pos = (int)x;
-	vars->player->y_pos = (int)y;
+    position_detection((int)(x), (int)(y), &line, &column);
+	if (vars->map->map[line][column] != '1')
+    {
+	    vars->player->x_pos = (int)x;
+	    vars->player->y_pos = (int)y;
+    }
 	put_image(vars);
 }
 

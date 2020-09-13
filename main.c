@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:33 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/05 14:00:40 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/14 00:16:54 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static int	hooks_manage(int keycode, t_vars *vars)
 
 static int 	destroy_window(int keycode, t_vars *vars)
 {
-	mlx_destroy_window(vars->mlx, vars->win);
+	keycode = 3;
+    mlx_destroy_window(vars->mlx, vars->win);
 	exit(0);
 }
 
@@ -45,7 +46,7 @@ int			main(int argc, char **argv)
     t_pars  	pars;
     t_player 	player;
     t_map		map;
-	t_data	cur_image;
+	//t_data	cur_image;
 	//int		color;
 
 	if (argc != 2 && argc != 3)
@@ -79,7 +80,8 @@ int			main(int argc, char **argv)
 	vars.map = &map;
 	//cur_image.img = mlx_xpm_file_to_image(vars.mlx,
 	//vars.pars->north_texture, &(cur_image.width), &(cur_image.height));
-    put_image(&vars);
+    put_textures(&vars);
+	put_image(&vars);
 	//mlx_put_image_to_window(vars.mlx, vars.win, cur_image.img, 0, 0);
     mlx_hook(vars.win, 2, 1L<<0, hooks_manage, &vars);
 	mlx_hook(vars.win, 17, 0, destroy_window, &vars);

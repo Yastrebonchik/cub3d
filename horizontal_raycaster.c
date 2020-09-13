@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   horizontal_raycaster.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 21:03:45 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/05 12:53:39 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/14 01:57:01 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void 		position_detection(int x, int y, int *line, int *column)
-{
-	int x_cur_pos;
-	int y_cur_pos;
-
-	x_cur_pos = 0;
-	y_cur_pos = 0;
-	*line = 0;
-	*column = 0;
-	while (x_cur_pos != x)
-	{
-		x_cur_pos++;
-		if (x_cur_pos % 64 == 0)
-			(*column)++;
-	}
-	while (y_cur_pos != y)
-	{
-		y_cur_pos++;
-		if (y_cur_pos % 64 == 0)
-			(*line)++;
-	}
-}
 
 static int	column_counter(double *x_pos, double x_cur_pos, double ray_angle)
 {
@@ -170,6 +147,6 @@ double		horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *m
 			line++;
 		}
 	}
-	map->coord = floor(x_cur_pos);
+	map->coord_x = floor(x_cur_pos);
 	return (distance);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_raycaster.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 16:32:39 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/05 12:52:36 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/14 01:56:51 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ double		vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map
 			column--;
 		while((map->map)[line][column] != '1')
 		{
-			//printf("Map line = %d & Map column = %d\n", line, column);
 			x_cur_pos -= 64;
 			distance += 64;
 			column--;
@@ -148,6 +147,6 @@ double		vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map
 			column++;
 		}
 	}
-	map->coord = floor(y_cur_pos);
+	map->coord_y = floor(y_cur_pos);
 	return (distance);
 }
