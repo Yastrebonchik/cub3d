@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:25:26 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/14 01:56:59 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/15 23:36:52 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 # define rotation_angle M_PI / 30
 # define scale 64
-# define speed 12
+# define speed 10
 #include <fcntl.h>
 #include <math.h>
 #include "mlx/mlx.h"
@@ -112,6 +112,7 @@ void	position_detection(int x, int y, int *line, int *column);
 void	draw_texture(t_vars *vars, int i, int *j, int height_of_wall);
 void	print_map(char **map);
 void	draw_map(t_vars *vars, t_data *img, char **map);
+void    check_side_of_world(t_vars *vars, double current_ray);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

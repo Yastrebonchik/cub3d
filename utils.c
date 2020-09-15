@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:29:24 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/14 01:55:09 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/15 23:36:36 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,9 @@ double		ft_abs(double a)
 double		min_of_2_cub(double a, double b, t_vars * vars)
 {
 	if (a < b)
-		vars->flag = 1;
+		vars->flag = 'E';
 	else
-		vars->flag = 2;
+		vars->flag = 'N';
 	return ((a < b) ? a : b);
 }
 
@@ -230,4 +230,18 @@ void			put_textures(t_vars *vars)
 	&(vars->east_texture->bits_per_pixel), &(vars->east_texture->line_length), &(vars->east_texture->endian));
 	vars->west_texture->addr = mlx_get_data_addr(vars->west_texture->img,
 	&(vars->west_texture->bits_per_pixel), &(vars->west_texture->line_length), &(vars->west_texture->endian));
+}
+
+void            check_side_of_world(t_vars *vars, double current_ray)
+{
+    if (vars->flag == 'E')
+    {
+        if (current_ray >= (M_PI_2) && current_ray <= 3 * M_PI_2)
+            vars->flag = 'W';
+    }
+    else
+    {
+        if (current_ray > 0 && current_ray < M_PI)
+            vars->flag = 'S';
+    }
 }
