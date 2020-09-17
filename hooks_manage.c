@@ -6,15 +6,12 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/11 18:06:18 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/15 23:36:38 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/16 17:04:46 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*Коллизия работает не идеально, при попадании на граничное значение,
-на 64 например, происходит вылет из-за леления на бесконечность 
-предположительно (Bus error 10)*/
 void 		move_forward(t_vars *vars)
 {
 	double  x;
@@ -107,19 +104,12 @@ void 		move_right(t_vars *vars)
 	put_image(vars);
 }
 
-void 		rotate_left(t_vars *vars)
+void 		rotation(t_vars *vars, int keycode)
 {
-	vars->player->pov -= rotation_angle;
-    if (vars->player->pov >= 2 * M_PI)
-		vars->player->pov = vars->player->pov - 2 * M_PI;
-	else if (vars->player->pov <= 0)
-			vars->player->pov = 2 * M_PI + vars->player->pov;
-	put_image(vars);
-}
-
-void 		rotate_right(t_vars *vars)
-{
-	vars->player->pov += rotation_angle;
+	if (keycode == 123)
+		vars->player->pov -= rotation_angle;
+	else
+		vars->player->pov += rotation_angle;
     if (vars->player->pov >= 2 * M_PI)
 	    vars->player->pov = vars->player->pov - 2 * M_PI;
 	else if (vars->player->pov <= 0)

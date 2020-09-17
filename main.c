@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:33 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/14 00:16:54 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/16 22:37:03 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	hooks_manage(int keycode, t_vars *vars)
 {
-	//printf("Key_code = %d\n", keycode);
 	if (keycode == 53)
 		exit(0);
 	if (keycode == 1)
@@ -26,9 +25,9 @@ static int	hooks_manage(int keycode, t_vars *vars)
 	if (keycode == 2)
 		move_right(vars);
 	if (keycode == 123)
-		rotate_left(vars);
+		rotation(vars, 123);
 	if (keycode == 124)
-		rotate_right(vars);
+		rotation(vars, 124);
 	return (0);
 }
 
@@ -46,8 +45,6 @@ int			main(int argc, char **argv)
     t_pars  	pars;
     t_player 	player;
     t_map		map;
-	//t_data	cur_image;
-	//int		color;
 
 	if (argc != 2 && argc != 3)
     {

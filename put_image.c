@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 12:54:31 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/15 23:36:44 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/16 16:29:44 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	put_image(t_vars *vars)
 	double 	current_ray;
 	double 	distance;
 	int		height_of_wall;
-	//int		color;
+	int		color;
 
 	current_ray = vars->player->pov - M_PI / 6;
 	if (current_ray <= 0)
@@ -51,9 +51,9 @@ void	put_image(t_vars *vars)
 		distance = distance * cos(-(M_PI / 6) + i * (M_PI / 3 / vars->pars->res_x));
 		height_of_wall = scale / distance * (vars->pars->res_x / (2 * tan(M_PI / 6)));
         check_side_of_world(vars, current_ray);
-		//color = atoi_color_base_16(pars.ceiling_color);
-		//printf("Ceiling color = %s and it's int value is = %d\n", pars.ceiling_color, color);
-		vars->map->coef = 64/(double)height_of_wall;
+		color = atoi_color_base_16(vars->pars->ceiling_color);
+		//printf("Ceiling color = %s and it's int value is = %d\n", vars->pars->floor_color, color);
+		vars->map->texture_scale = 64/(double)height_of_wall;
 		if (height_of_wall > vars->pars->res_y)
 		{
 			while (j < vars->pars->res_y)
@@ -62,13 +62,13 @@ void	put_image(t_vars *vars)
 		else
 		{
 			while (j < (vars->pars->res_y - height_of_wall) / 2)
-				my_mlx_pixel_put(vars->data, i, j++, 0x00A52A2A);
+				my_mlx_pixel_put(vars->data, i, j++, color);
 			while (j < (vars->pars->res_y - height_of_wall) / 2 + height_of_wall)
 				draw_texture(vars, i, &j, height_of_wall);
-			//color = atoi_color_base_16(pars.floor_color);
-			//printf("Floor color = %s and it's int value is = %d\n", pars.floor_color, color);
+			color = atoi_color_base_16(vars->pars->floor_color);
+			//printf("Floor color = %s and it's int value is = %d\n", vars->pars->floor_color, color);
 			while (j < vars->pars->res_y)
-				my_mlx_pixel_put(vars->data, i, j++, 0x000000FF);
+				my_mlx_pixel_put(vars->data, i, j++, color);
 		}
 		i++;
 		current_ray += M_PI / 3 / vars->pars->res_x;

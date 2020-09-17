@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+         #
+#    By: alexander <alexander@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/17 17:19:48 by kcedra            #+#    #+#              #
-#    Updated: 2020/09/10 06:25:10 by kcedra           ###   ########.fr        #
+#    Updated: 2020/09/16 17:10:16 by alexander        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ MLX = libmlx.a
 
 SOURCES = main.c parser.c parse_textures.c utils.c itoabase.c parse_colors.c \
 errors_management.c draw_2d_map.c horizontal_raycaster.c vertical_raycaster.c put_image.c \
-hooks_manage.c draw_texture.c
+hooks_manage.c draw_texture.c color_funcs.c map_utils.c
 
 O_FILES = $(SOURCES:.c=.o)
 

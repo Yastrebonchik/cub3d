@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:25:26 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/15 23:36:52 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/16 17:02:50 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 # define rotation_angle M_PI / 30
 # define scale 64
-# define speed 10
+# define speed 12
 #include <fcntl.h>
 #include <math.h>
 #include "mlx/mlx.h"
@@ -54,7 +54,7 @@ typedef struct	s_map
 	int 		column_max;
 	int 		coord_x;
 	int			coord_y;
-	double 		coef;
+	double 		texture_scale;
 }				t_map;
 
 typedef struct	s_player
@@ -102,8 +102,7 @@ void	move_forward(t_vars *vars);
 void	move_backward(t_vars *vars);
 void	move_left(t_vars *vars);
 void	move_right(t_vars *vars);
-void	rotate_left(t_vars *vars);
-void	rotate_right(t_vars *vars);
+void	rotation(t_vars *vars, int keycode);
 void	text_join_n(char **text, char **line, int gnl);
 void	pars_init(t_pars *pars);
 void	limit_counter(t_map *map);
