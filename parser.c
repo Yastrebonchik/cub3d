@@ -12,6 +12,7 @@
 
 #include "cub3d.h"
 
+//Отнормировать
 t_pars		parser(char *filename)
 {
 	int		fd;

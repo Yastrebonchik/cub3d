@@ -12,57 +12,57 @@
 
 #include "cub3d.h"
 
-void 		move_forward(t_vars *vars)
+void		move_forward(t_vars *vars)
 {
-	double  x;
-	double  y;
-    int     line;
-    int     column;
-    
+	double	x;
+	double	y;
+	int		line;
+	int		column;
+
 	x = vars->player->x_pos;
 	y = vars->player->y_pos;
 	x += speed * cos(vars->player->pov);
 	y += speed * sin(vars->player->pov);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
-    position_detection((int)(x), (int)(y), &line, &column);
-    if (vars->map->map[line][column] != '1')
-    {
-	    vars->player->x_pos = (int)x;
-	    vars->player->y_pos = (int)y;
-    }
-    put_image(vars);
+	position_detection((int)(x), (int)(y), &line, &column);
+	if (vars->map->map[line][column] != '1')
+	{
+		vars->player->x_pos = (int)x;
+		vars->player->y_pos = (int)y;
+	}
+	put_image(vars);
 }
 
-void 		move_backward(t_vars *vars)
+void		move_backward(t_vars *vars)
 {
-	double  x;
-	double  y;
-    int     line;
-    int     column;
-    
+	double	x;
+	double	y;
+	int		line;
+	int		column;
+
 	x = vars->player->x_pos;
 	y = vars->player->y_pos;
 	x += speed * cos(vars->player->pov + M_PI);
 	y += speed * sin(vars->player->pov + M_PI);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
-    position_detection((int)(x), (int)(y), &line, &column);
+	position_detection((int)(x), (int)(y), &line, &column);
 	if (vars->map->map[line][column] != '1')
-    {
-	    vars->player->x_pos = (int)x;
-	    vars->player->y_pos = (int)y;
-    }
+	{
+		vars->player->x_pos = (int)x;
+		vars->player->y_pos = (int)y;
+	}
 	put_image(vars);
 }
 
-void 		move_left(t_vars *vars)
+void		move_left(t_vars *vars)
 {
-	double x;
-	double y;
-    int     line;
-    int     column;
-	double ray;
+	double	x;
+	double	y;
+	int		line;
+	int		column;
+	double	ray;
 
 	x = vars->player->x_pos;
 	y = vars->player->y_pos;
@@ -71,22 +71,22 @@ void 		move_left(t_vars *vars)
 	y += speed * sin(ray);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
-    position_detection((int)(x), (int)(y), &line, &column);
+	position_detection((int)(x), (int)(y), &line, &column);
 	if (vars->map->map[line][column] != '1')
-    {
-	    vars->player->x_pos = (int)x;
-	    vars->player->y_pos = (int)y;
-    }
+	{
+		vars->player->x_pos = (int)x;
+		vars->player->y_pos = (int)y;
+	}
 	put_image(vars);
 }
 
-void 		move_right(t_vars *vars)
+void		move_right(t_vars *vars)
 {
-	double x;
-	double y;
-    int     line;
-    int     column;
-	double ray;
+	double	x;
+	double	y;
+	int		line;
+	int		column;
+	double	ray;
 
 	x = vars->player->x_pos;
 	y = vars->player->y_pos;
@@ -95,23 +95,23 @@ void 		move_right(t_vars *vars)
 	y += speed * sin(ray);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
-    position_detection((int)(x), (int)(y), &line, &column);
+	position_detection((int)(x), (int)(y), &line, &column);
 	if (vars->map->map[line][column] != '1')
-    {
-	    vars->player->x_pos = (int)x;
-	    vars->player->y_pos = (int)y;
-    }
+	{
+		vars->player->x_pos = (int)x;
+		vars->player->y_pos = (int)y;
+	}
 	put_image(vars);
 }
 
-void 		rotation(t_vars *vars, int keycode)
+void		rotation(t_vars *vars, int keycode)
 {
 	if (keycode == 123)
 		vars->player->pov -= rotation_angle;
 	else
 		vars->player->pov += rotation_angle;
-    if (vars->player->pov >= 2 * M_PI)
-	    vars->player->pov = vars->player->pov - 2 * M_PI;
+	if (vars->player->pov >= 2 * M_PI)
+		vars->player->pov = vars->player->pov - 2 * M_PI;
 	else if (vars->player->pov <= 0)
 		vars->player->pov = 2 * M_PI + vars->player->pov;
 	put_image(vars);

@@ -140,7 +140,7 @@ int			args_error_management(char *text, t_pars *pars)
 		while (text[i] != '\0' && text[i] != '\n')
 			i++;
 		if (check_validity(pars) == 1)
-			break;
+			break ;
 	}
 	while (text[i] == '\n' || text[i] == ' ')
 		i++;
@@ -149,6 +149,5 @@ int			args_error_management(char *text, t_pars *pars)
 		ft_putendl_fd("Error\nNo map in file", 1);
 		return (1);
 	}
-	pars->map = ft_split(&(text[i]), '\n');
-	return ((pars->map == NULL) ? 1 : flag);
+	return (((pars->map = ft_split(&(text[i]), '\n')) == NULL) ? 1 : flag);
 }

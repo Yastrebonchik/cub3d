@@ -26,9 +26,9 @@ void		print_map(char **map)
 
 void		limit_counter(t_map *map)
 {
-	int 	line;
-	int 	column;
-	int 	max;
+	int		line;
+	int		column;
+	int		max;
 
 	line = 0;
 	column = 0;
@@ -45,7 +45,7 @@ void		limit_counter(t_map *map)
 	map->column_max = column;
 }
 
-void 		position_detection(int x, int y, int *line, int *column)
+void		position_detection(int x, int y, int *line, int *column)
 {
 	int x_cur_pos;
 	int y_cur_pos;

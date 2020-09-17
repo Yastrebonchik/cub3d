@@ -51,7 +51,6 @@ static char	*unite_colors(int a, int y, int c)
 	r = ft_itoabase(a, 'X');
 	g = ft_itoabase(y, 'X');
 	b = ft_itoabase(c, 'X');
-	//printf("%s %s %s\n", r, g, b);
 	insert_color(&color, r, g, b);
 	free(r);
 	free(g);

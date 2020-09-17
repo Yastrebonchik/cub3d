@@ -64,6 +64,13 @@ typedef struct	s_player
 	double 		pov;
 }				t_player;
 
+typedef struct	s_sprite
+{
+	int 	x;
+	int 	y;
+	struct	s_sprite *next;
+}				t_sprite;
+
 typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
@@ -73,6 +80,8 @@ typedef struct	s_vars {
     t_data      *south_texture;
     t_data      *east_texture;
     t_data      *west_texture;
+    t_data 		*sprite_texture;
+    t_sprite 	*sprite_list;
 	t_player	*player;
 	t_pars		*pars;
 	t_map 		*map;
