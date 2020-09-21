@@ -71,6 +71,11 @@ double		min_of_2_cub(double a, double b, t_vars * vars)
 	return ((a < b) ? a : b);
 }
 
+double		min_of_2(double a, double b)
+{
+	return ((a < b) ? a : b);
+}
+
 void			put_textures(t_vars *vars)
 {
 	t_data	*north_texture;
@@ -142,7 +147,7 @@ void			print_textures(t_vars *vars)
 		cur_elem = vars->lst_head;
 		while (cur_elem != NULL)
 		{
-			//printf("X = %d and y = %d\n", cur_elem->x, cur_elem->y);
+			printf("X = %d and y = %d\n", cur_elem->x, cur_elem->y);
 			cur_elem = cur_elem->next;
 		}
 		// cur_elem = vars->lst_head;

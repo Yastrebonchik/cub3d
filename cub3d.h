@@ -51,6 +51,7 @@ typedef struct	s_sprite
 {
 	int 	x;
 	int 	y;
+	double 	distance;
 	struct	s_sprite *next;
 }				t_sprite;
 
@@ -105,7 +106,7 @@ t_pars	parser(char *filename);
 double  vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map);
 double  horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *map);
 double  min_of_2_cub(double a, double b, t_vars *vars);
-double	ft_abs(double a);
+double	min_of_2(double a, double b);
 void	put_image(t_vars *vars);
 void	move_forward(t_vars *vars);
 void	move_backward(t_vars *vars);

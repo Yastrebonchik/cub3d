@@ -66,7 +66,6 @@ void	put_image(t_vars *vars)
 			while (j < (vars->pars->res_y - height_of_wall) / 2 + height_of_wall)
 				draw_texture(vars, i, &j, height_of_wall);
 			color = atoi_color_base_16(vars->pars->floor_color);
-			//printf("Floor color = %s and it's int value is = %d\n", vars->pars->floor_color, color);
 			while (j < vars->pars->res_y)
 				my_mlx_pixel_put(vars->data, i, j++, color);
 		}
@@ -76,11 +75,9 @@ void	put_image(t_vars *vars)
 			current_ray = current_ray - 2 * M_PI;
 		else if (current_ray <= 0)
 			current_ray = 2 * M_PI + current_ray;
-        //printf("%c\n", vars->flag);
 	}
 	check_sprites(vars);
 	//if (i == vars->pars->res_x)
-	//printf("Kekos\n");
 	//print_textures(vars->map);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
 }
