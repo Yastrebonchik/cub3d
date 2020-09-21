@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 12:54:31 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/16 16:29:44 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/21 13:22:22 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void	put_image(t_vars *vars)
 			current_ray = 2 * M_PI + current_ray;
         //printf("%c\n", vars->flag);
 	}
-	if (i == vars->pars->res_x)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
+	check_sprites(vars);
+	//if (i == vars->pars->res_x)
+	//printf("Kekos\n");
+	//print_textures(vars->map);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:29:24 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/16 22:43:47 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/21 14:29:48 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,4 +130,27 @@ void            check_side_of_world(t_vars *vars, double current_ray)
         if (current_ray > 0 && current_ray < M_PI)
             vars->flag = 'S';
     }
+}
+
+void			print_textures(t_vars *vars)
+{
+	t_sprite	*cur_elem;
+	//t_sprite	*head;
+	
+	if (vars->lst_head != NULL)
+	{
+		cur_elem = vars->lst_head;
+		while (cur_elem != NULL)
+		{
+			//printf("X = %d and y = %d\n", cur_elem->x, cur_elem->y);
+			cur_elem = cur_elem->next;
+		}
+		// cur_elem = vars->lst_head;
+		// while (cur_elem != NULL)
+		// {
+		// 	head = cur_elem->next;
+		// 	free(cur_elem);
+		// 	cur_elem = head;
+		// }
+	}
 }

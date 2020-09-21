@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:25:26 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/16 17:02:50 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/21 13:13:41 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ typedef struct	s_data {
     int 		width;
 }				t_data;
 
+typedef struct	s_sprite
+{
+	int 	x;
+	int 	y;
+	struct	s_sprite *next;
+}				t_sprite;
+
 typedef struct	s_map
 {
 	char		**map;
@@ -64,13 +71,6 @@ typedef struct	s_player
 	double 		pov;
 }				t_player;
 
-typedef struct	s_sprite
-{
-	int 	x;
-	int 	y;
-	struct	s_sprite *next;
-}				t_sprite;
-
 typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
@@ -81,7 +81,7 @@ typedef struct	s_vars {
     t_data      *east_texture;
     t_data      *west_texture;
     t_data 		*sprite_texture;
-    t_sprite 	*sprite_list;
+	t_sprite	*lst_head;
 	t_player	*player;
 	t_pars		*pars;
 	t_map 		*map;
@@ -120,7 +120,10 @@ void	position_detection(int x, int y, int *line, int *column);
 void	draw_texture(t_vars *vars, int i, int *j, int height_of_wall);
 void	print_map(char **map);
 void	draw_map(t_vars *vars, t_data *img, char **map);
-void    check_side_of_world(t_vars *vars, double current_ray);
+void	check_side_of_world(t_vars *vars, double current_ray);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	sprite_list_init(t_vars *vars);
+void	print_textures(t_vars *vars);
+void	check_sprites(t_vars *vars);
 
 #endif
