@@ -14,6 +14,7 @@
 # define CUB3D_H
 # define rotation_angle M_PI / 60
 # define scale 64
+# define sprite_scale 96
 # define speed 12
 #include <fcntl.h>
 #include <math.h>

@@ -30,7 +30,6 @@ void	put_image(t_vars *vars)
 	//printf("POV = %f\n", vars->player->pov);
 	while (i < vars->pars->res_x)
 	{
-		j = 0;
 		if ((current_ray >= 3 * M_PI_2 - M_PI / 3 / vars->pars->res_x) && (current_ray <= 3 * M_PI_2 + M_PI / 3 / vars->pars->res_x))
 			distance = horizontal_raycaster(vars->player->x_pos, vars->player->y_pos, 3 * M_PI_2, vars->map);
 		else if ((current_ray >= M_PI - M_PI / 3 / vars->pars->res_x) && (current_ray <= M_PI + M_PI / 3 / vars->pars->res_x))
@@ -55,6 +54,7 @@ void	put_image(t_vars *vars)
 		color = atoi_color_base_16(vars->pars->ceiling_color);
 		//printf("Ceiling color = %s and it's int value is = %d\n", vars->pars->floor_color, color);
 		vars->map->texture_scale = 64/(double)height_of_wall;
+		j = 0;
 		if (height_of_wall > vars->pars->res_y)
 		{
 			while (j < vars->pars->res_y)

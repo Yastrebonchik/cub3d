@@ -59,22 +59,25 @@ void	check_sprites(t_vars *vars)
 	while (cur_elem != NULL)
 	{
 		//printf("Player x = %d and player y = %d\n", vars->player->x_pos, vars->player->y_pos);
-		printf("Sprite column = %d and sprite line = %d\n", cur_elem->x / 64, cur_elem->y / 64);
+		//printf("Sprite column = %d and sprite line = %d\n", cur_elem->x / 64, cur_elem->y / 64);
 		spr_abs_angle = atan2(cur_elem->y - vars->player->y_pos, cur_elem->x - vars->player->x_pos);
+		//spr_plr_angle = spr_abs_angle - vars->player->pov;
+		while (spr_abs_angle - vars->player->pov > M_PI)
+			spr_abs_angle -= 2 * M_PI;
+		while (spr_abs_angle - vars->player->pov < -M_PI)
+			spr_abs_angle += 2 * M_PI;
 		spr_plr_angle = spr_abs_angle - vars->player->pov;
-		while (spr_plr_angle > M_PI)
-			spr_plr_angle -= 2 * M_PI;
-		while (spr_plr_angle < -M_PI)
-			spr_plr_angle += 2 * M_PI;
-		if (ft_abs(spr_plr_angle) < M_PI / 6)
+		distance = sqrt(pow(vars->player->x_pos - cur_elem->x, 2) + pow(vars->player->y_pos - cur_elem->y, 2));
+		sprite_size = sprite_scale * vars->pars->res_y / distance;
+		if (ft_abs(spr_plr_angle) < M_PI / 6 + sqrt((distance * distance) + (sprite_size * sprite_size)))
 		{
-			distance = sqrt(pow(vars->player->x_pos - cur_elem->x, 2) + pow(vars->player->y_pos - cur_elem->y, 2));
+			//distance = sqrt(pow(vars->player->x_pos - cur_elem->x, 2) + pow(vars->player->y_pos - cur_elem->y, 2));
 			vars->dst[vars->pars->res_x] = distance;
-			sprite_size = min_of_2(vars->pars->res_y / 2, 64 * vars->pars->res_y / distance);
+			printf("Distance = %f\n", distance);
 			vars->map->texture_scale = 64 / (double)sprite_size;
 			h_offset = spr_plr_angle * (vars->pars->res_x) / (M_PI / 3) + (vars->pars->res_x) / 2 - sprite_size / 2;
-			w_offset = vars->pars->res_y / 2 - sprite_size / 2 + 8;
-			//printf("Sprite size = %f\n", sprite_size);
+			w_offset = vars->pars->res_y / 2 - sprite_size / 2;
+			//sprite_size = min_of_2(vars->pars->res_y / 2, sprite_scale * vars->pars->res_y / distance);
 			draw_sprite(vars, (int)sprite_size, h_offset, w_offset);
 		}
 		cur_elem = cur_elem->next;
