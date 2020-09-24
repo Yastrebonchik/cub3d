@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:33 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/21 13:58:38 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/23 16:12:49 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static int	hooks_manage(int keycode, t_vars *vars)
 	return (0);
 }
 
-static int 	destroy_window(int keycode, t_vars *vars)
-{
-	keycode = 3;
-    mlx_destroy_window(vars->mlx, vars->win);
-	exit(0);
-}
+// static int 	destroy_window(int keycode, t_vars *vars)
+// {
+// 	keycode = 3;
+//     mlx_destroy_window(vars->mlx, vars->win);
+// 	exit(0);
+// }
 
 int			main(int argc, char **argv)
 {
@@ -45,6 +45,7 @@ int			main(int argc, char **argv)
     t_pars  	pars;
     t_player 	player;
     t_map		map;
+	double		*array;
 
 	if (argc != 2 && argc != 3)
     {
@@ -69,6 +70,8 @@ int			main(int argc, char **argv)
     player.pov = 0;
     player.x_pos = 640;
     player.y_pos = 236;
+	array = (double*)malloc(sizeof(double) * (pars.res_x + 1));
+	vars.dst = array;
     vars.player = &player;
     vars.data = &img;
     vars.pars = &pars;
@@ -81,7 +84,7 @@ int			main(int argc, char **argv)
 	put_image(&vars);
 	//mlx_put_image_to_window(vars.mlx, vars.win, cur_image.img, 0, 0);
     mlx_hook(vars.win, 2, 1L<<0, hooks_manage, &vars);
-	mlx_hook(vars.win, 17, 0, destroy_window, &vars);
+	//mlx_hook(vars.win, 17, 0, destroy_window, &vars);
     mlx_loop(vars.mlx);
     return (0);
 }

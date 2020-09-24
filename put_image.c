@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 12:54:31 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/21 13:22:22 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/23 15:55:58 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	put_image(t_vars *vars)
 		if (distance == 0)
 			break;
 		distance = distance * cos(-(M_PI / 6) + i * (M_PI / 3 / vars->pars->res_x));
+		vars->dst[i] = distance;
 		height_of_wall = scale / distance * (vars->pars->res_x / (2 * tan(M_PI / 6)));
         check_side_of_world(vars, current_ray);
 		color = atoi_color_base_16(vars->pars->ceiling_color);
@@ -66,6 +67,7 @@ void	put_image(t_vars *vars)
 			while (j < (vars->pars->res_y - height_of_wall) / 2 + height_of_wall)
 				draw_texture(vars, i, &j, height_of_wall);
 			color = atoi_color_base_16(vars->pars->floor_color);
+			//printf("Floor color = %s and it's int value is = %d\n", vars->pars->floor_color, color);
 			while (j < vars->pars->res_y)
 				my_mlx_pixel_put(vars->data, i, j++, color);
 		}
@@ -75,9 +77,11 @@ void	put_image(t_vars *vars)
 			current_ray = current_ray - 2 * M_PI;
 		else if (current_ray <= 0)
 			current_ray = 2 * M_PI + current_ray;
+        //printf("%c\n", vars->flag);
 	}
 	check_sprites(vars);
 	//if (i == vars->pars->res_x)
+	//printf("Kekos\n");
 	//print_textures(vars->map);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
 }

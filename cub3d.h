@@ -6,13 +6,13 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:25:26 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/21 13:13:41 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/24 18:01:15 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define rotation_angle M_PI / 30
+# define rotation_angle M_PI / 60
 # define scale 64
 # define speed 12
 #include <fcntl.h>
@@ -76,6 +76,7 @@ typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
     char        flag;
+	double		*dst;
 	t_data		*data;
 	t_data 		*north_texture;
     t_data      *south_texture;

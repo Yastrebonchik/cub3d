@@ -6,36 +6,42 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/21 13:00:02 by alexander         #+#    #+#             */
-/*   Updated: 2020/09/21 14:29:35 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/24 18:00:17 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void 	draw_sprite(t_vars *vars, int height, int i, int j, int j_begin)
+void 	draw_sprite(t_vars *vars, int sprite_size, int i, int j)
 {
-//	int 	cur_height;
-//	int 	coord;
-//	int 	color;
-//	double 	d_cur_height;
-
-	//coord = vars->map->texture_scale
-//	d_cur_height = vars->map->texture_scale * (double)(*j -
-//	((vars->pars->res_y - height) / 2));
-//	cur_height = floor(d_cur_height);
-//	if (vars->flag == 'W')
-//		color = my_mlx_get_color(vars->west_texture, coord, cur_height);
-//	else if (vars->flag == 'S')
-//		color = my_mlx_get_color(vars->south_texture, coord, cur_height);
-//	else if (vars->flag == 'N')
-//		color = my_mlx_get_color(vars->north_texture, coord, cur_height);
-//	else
-//		color = my_mlx_get_color(vars->east_texture, coord, cur_height);
-	height = 3;
-	while ((j - j_begin) < 64)
+	int 			height;
+	int 			coord;
+	int				j_begin; 
+	int 			i_begin;
+	unsigned int	color;
+	
+	i_begin = i;
+	j_begin = j;
+	while ((i - i_begin) < sprite_size)
 	{
-		//printf("Kek\n");
-		my_mlx_pixel_put(vars->data, i, (j)++, 0x00000000);
+		if (vars->dst[i] > vars->dst[vars->pars->res_x])
+		{
+			j = j_begin;
+			//vars->dst[i] = vars->dst[vars->pars->res_x];
+			while ((j - j_begin) < sprite_size)
+			{
+				coord = floor(vars->map->texture_scale * (i - i_begin));
+				height = floor(vars->map->texture_scale * (j - j_begin));
+				color = my_mlx_get_color(vars->sprite_texture, coord, height);
+				if (color != 0)
+				{
+					my_mlx_pixel_put(vars->data, i, j, color);
+					vars->dst[i] = vars->dst[vars->pars->res_x];
+				}
+				j++;
+			}
+		}
+		i++;
 	}
 }
 
@@ -45,18 +51,15 @@ void	check_sprites(t_vars *vars)
 	double		spr_abs_angle;
 	double 		spr_plr_angle;
 	double 		distance;
-	double 		height;
-	//int 		begin_h;
-	//int 		begin_w;
-	//double 		width;
-//	int 		h_offset;
-//	int 		w_offset;
+	double 		sprite_size;
+	int 		h_offset;
+	int 		w_offset;
 
 	cur_elem = vars->lst_head;
 	while (cur_elem != NULL)
 	{
 		//printf("Player x = %d and player y = %d\n", vars->player->x_pos, vars->player->y_pos);
-		//printf("Sprite x = %d and sprite y = %d\n", cur_elem->x, cur_elem->y);
+		printf("Sprite column = %d and sprite line = %d\n", cur_elem->x / 64, cur_elem->y / 64);
 		spr_abs_angle = atan2(cur_elem->y - vars->player->y_pos, cur_elem->x - vars->player->x_pos);
 		spr_plr_angle = spr_abs_angle - vars->player->pov;
 		while (spr_plr_angle > M_PI)
@@ -65,25 +68,14 @@ void	check_sprites(t_vars *vars)
 			spr_plr_angle += 2 * M_PI;
 		if (ft_abs(spr_plr_angle) < M_PI / 6)
 		{
-			//i = 0;
 			distance = sqrt(pow(vars->player->x_pos - cur_elem->x, 2) + pow(vars->player->y_pos - cur_elem->y, 2));
-			printf("Sprite angle = %f\n", spr_plr_angle);
-			height = min_of_2(vars->pars->res_y / 2, vars->pars->res_y / distance);
-			printf("Distance = %f\n", vars->pars->res_y / distance);
-//			width = min_of_2(vars->pars->res_x / 2, 64 / distance * (vars->pars->res_y / (2 * tan(M_PI / 6))));
-//			h_offset = ft_abs(spr_plr_angle) * (vars->pars->res_x) / (M_PI / 3) + (vars->pars->res_x)/ - height;
-//			w_offset = vars->pars->res_y - height;
-//			vars->map->texture_scale = 64/height;
-//			begin_h = h_offset;
-//			begin_w = w_offset;
-//			printf("Scale = %f\n", vars->map->texture_scale);
-//			//printf ("w_offset - begin_w = %d\n", w_offset - begin_w);
-//			while ((w_offset - begin_w)  < 64)
-//			{
-//				draw_sprite(vars, height, w_offset, h_offset, begin_h);
-//				w_offset++;
-//			}
-			//printf("Sprite line = %d and sprite column = %d\n", cur_elem->y / 64, cur_elem->x / 64);
+			vars->dst[vars->pars->res_x] = distance;
+			sprite_size = min_of_2(vars->pars->res_y / 2, 64 * vars->pars->res_y / distance);
+			vars->map->texture_scale = 64 / (double)sprite_size;
+			h_offset = spr_plr_angle * (vars->pars->res_x) / (M_PI / 3) + (vars->pars->res_x) / 2 - sprite_size / 2;
+			w_offset = vars->pars->res_y / 2 - sprite_size / 2 + 8;
+			//printf("Sprite size = %f\n", sprite_size);
+			draw_sprite(vars, (int)sprite_size, h_offset, w_offset);
 		}
 		cur_elem = cur_elem->next;
 	}
