@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 12:54:31 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/23 15:55:58 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/24 23:21:23 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	put_image(t_vars *vars)
 		//printf("i = %04d, distance = %f && current ray = %f and coord for textures = %4d\n", i, distance, current_ray, vars->map->coord);
 		if (distance == 0)
 			break;
-		distance = distance * cos(-(M_PI / 6) + i * (M_PI / 3 / vars->pars->res_x));
 		vars->dst[i] = distance;
+		distance = distance * cos(-(M_PI / 6) + i * (M_PI / 3 / vars->pars->res_x));
 		height_of_wall = scale / distance * (vars->pars->res_x / (2 * tan(M_PI / 6)));
         check_side_of_world(vars, current_ray);
 		color = atoi_color_base_16(vars->pars->ceiling_color);

@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:33 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/23 16:12:49 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/24 22:10:48 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			main(int argc, char **argv)
     }
     pars = parser(argv[1]);
     if (pars.flag == 1)
-        return (0);
+        exit (1);
   	printf("Params flag = %d\n", pars.flag);
     //printf("Res_x = %d\nRes_y = %d\nNorth_texture - %s\nSouth_texture - %s\nEast_texture - %s\nWest_texture - %s\nSprite_texture - %s\nFloor_color = %s\nCeiling_color= %s\n",
 	//pars.res_x, pars.res_y, pars.north_texture, pars.south_texture, pars.east_texture, pars.west_texture, pars.sprite_texture, pars.floor_color, pars.ceiling_color);
@@ -65,7 +65,6 @@ int			main(int argc, char **argv)
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
     &img.endian);
     map.map = pars.map;
-    //draw_map(&vars, &img, pars.map);
     limit_counter(&map);
     player.pov = 0;
     player.x_pos = 640;

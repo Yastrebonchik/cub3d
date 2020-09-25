@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:29:24 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/21 14:29:48 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/25 16:40:08 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void			print_textures(t_vars *vars)
 		cur_elem = vars->lst_head;
 		while (cur_elem != NULL)
 		{
-			printf("X = %d and y = %d\n", cur_elem->x, cur_elem->y);
+			//printf("X = %d and y = %d\n", cur_elem->x, cur_elem->y);
 			cur_elem = cur_elem->next;
 		}
 		// cur_elem = vars->lst_head;
