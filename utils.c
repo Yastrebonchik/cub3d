@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 17:29:24 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/25 16:40:08 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/25 23:11:43 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,6 @@ double		min_of_2_cub(double a, double b, t_vars * vars)
 		vars->flag = 'E';
 	else
 		vars->flag = 'N';
-	return ((a < b) ? a : b);
-}
-
-double		min_of_2(double a, double b)
-{
 	return ((a < b) ? a : b);
 }
 

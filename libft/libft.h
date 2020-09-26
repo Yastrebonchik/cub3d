@@ -6,7 +6,7 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 20:19:23 by student           #+#    #+#             */
-/*   Updated: 2020/09/16 16:34:18 by alexander        ###   ########.fr       */
+/*   Updated: 2020/09/25 23:11:33 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int					ft_strchrnum(const char *s, int c);
 int					add_first_buf(char **text, char *buffer, int size);
 int					get_next_line(int fd, char **line);
 double				ft_abs(double a);
+double				min_of_2(double a, double b);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
