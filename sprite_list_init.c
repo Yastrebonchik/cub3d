@@ -16,7 +16,7 @@ static void	create_node(t_vars *vars, int line, int column)
 {
 	t_sprite	*new_elem;
 	t_sprite	*cur_elem;
-	
+
 	if (vars->lst_head == NULL)
 	{
 		new_elem = (t_sprite*)malloc(sizeof(t_sprite));

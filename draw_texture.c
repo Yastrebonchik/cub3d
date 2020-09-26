@@ -12,12 +12,11 @@
 
 #include "cub3d.h"
 
-void 	draw_texture(t_vars *vars, int i, int *j, int height_of_wall)
+void	draw_texture(t_vars *vars, int i, int *j, int height_of_wall)
 {
-	int 	cur_height;
-	int 	coord;
-	int 	color;
-	double 	d_cur_height;
+	int cur_height;
+	int coord;
+	int	color;
 
 	if (vars->flag == 'E')
 		coord = (vars->map->coord_y % 64);
@@ -27,15 +26,14 @@ void 	draw_texture(t_vars *vars, int i, int *j, int height_of_wall)
 		coord = vars->map->coord_x % 64;
 	else
 		coord = 63 - vars->map->coord_x % 64;
-	vars->map->texture_scale = 64/(double)height_of_wall;
-	d_cur_height = vars->map->texture_scale * (double)(*j -
-	((vars->pars->res_y - height_of_wall) / 2));
-	cur_height = floor(d_cur_height);
+	vars->map->texture_scale = 64 / (double)height_of_wall;
+	cur_height = floor(vars->map->texture_scale * (double)(*j -
+	((vars->pars->res_y - height_of_wall) / 2)));
 	if (vars->flag == 'W')
 		color = my_mlx_get_color(vars->west_texture, coord, cur_height);
 	else if (vars->flag == 'S')
 		color = my_mlx_get_color(vars->south_texture, coord, cur_height);
-    else if (vars->flag == 'N')
+	else if (vars->flag == 'N')
 		color = my_mlx_get_color(vars->north_texture, coord, cur_height);
 	else
 		color = my_mlx_get_color(vars->east_texture, coord, cur_height);

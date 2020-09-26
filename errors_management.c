@@ -39,7 +39,7 @@ int			color_error_management(char *text, t_pars *pars, int i)
 	return (flag);
 }
 
-int			resolution_error_managemnt(char *text, t_pars *pars)
+int			resolution_error_managemnt(char *text, t_pars *pars, t_vars *vars)
 {
 	int i;
 	int flag;
@@ -50,14 +50,14 @@ int			resolution_error_managemnt(char *text, t_pars *pars)
 		flag = 1;
 	while (text[i] == ' ')
 		i++;
-	pars->res_x = ft_atoi(&text[i]);
+	pars->res_x = get_resolution(&text[i], 'x', vars);
 	while (ft_isdigit(text[i]) == 1)
 		i++;
 	flag = (text[i] != ' ') ? 1 : flag;
 	i++;
 	while (text[i] == ' ')
 		i++;
-	pars->res_y = ft_atoi(&text[i]);
+	pars->res_y = get_resolution(&text[i], 'y', vars);
 	while (ft_isdigit(text[i]) == 1)
 		i++;
 	while (text[i] == ' ')
@@ -96,13 +96,13 @@ int			file_error_management(int gnl, char *filename)
 	return (0);
 }
 
-static int	detect_function(char *text, int i, t_pars *pars)
+static int	detect_function(char *text, int i, t_pars *pars, t_vars *vars)
 {
 	int	flag;
 
 	flag = 0;
 	if (text[i] == 'R')
-		flag = resolution_error_managemnt(&(text[i]), pars);
+		flag = resolution_error_managemnt(&(text[i]), pars, vars);
 	else if (text[i] == 'N')
 		flag = north_texture(text, pars, i);
 	else if (text[i] == 'S' && text[i + 1] == 'O')
@@ -123,18 +123,17 @@ static int	detect_function(char *text, int i, t_pars *pars)
 	return ((flag == 1) ? 1 : 0);
 }
 
-int			args_error_management(char *text, t_pars *pars)
+int			args_error_management(char *text, t_pars *pars, int flag,
+							t_vars *vars)
 {
 	int i;
-	int flag;
 
-	flag = 0;
 	i = 0;
 	while (text[i] != '1' && text[i] != '2' && text[i] != '\0')
 	{
 		while (text[i] == '\n' || text[i] == ' ')
 			i++;
-		flag = detect_function(text, i, pars);
+		flag = detect_function(text, i, pars, vars);
 		if (flag == 1)
 			return (1);
 		while (text[i] != '\0' && text[i] != '\n')
@@ -144,10 +143,8 @@ int			args_error_management(char *text, t_pars *pars)
 	}
 	while (text[i] == '\n' || text[i] == ' ')
 		i++;
-	if (text[i] != '1')
-	{
-		ft_putendl_fd("Error\nNo map in file", 1);
-		return (1);
-	}
+	while (text[i - 1] != '\n')
+		i--;
+	empty_line_check(&(text[i]), 0);
 	return (((pars->map = ft_split(&(text[i]), '\n')) == NULL) ? 1 : flag);
 }

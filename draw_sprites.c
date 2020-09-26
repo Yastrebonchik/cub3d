@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static void			reassign_elem(t_sprite **cur_elem)
+static void	reassign_elem(t_sprite **cur_elem)
 {
 	t_sprite	sub;
 
@@ -27,11 +27,11 @@ static void			reassign_elem(t_sprite **cur_elem)
 	((*cur_elem)->next)->distance = sub.distance;
 }
 
-static void			sort_sprites(t_vars *vars)
+static void	sort_sprites(t_vars *vars, t_sprite **begin_list)
 {
 	int			lst_len;
-	t_sprite 	*cur_elem;
-	
+	t_sprite	*cur_elem;
+
 	cur_elem = vars->lst_head;
 	lst_len = 0;
 	while (cur_elem != NULL)
@@ -53,16 +53,17 @@ static void			sort_sprites(t_vars *vars)
 		}
 		lst_len--;
 	}
+	(*begin_list) = vars->lst_head;
 }
 
-static void			draw_sprite(t_vars *vars, int sprite_size, int i, int j)
+static void	draw_sprite(t_vars *vars, int sprite_size, int i, int j)
 {
-	int 			height;
-	int 			coord;
-	int				j_begin; 
-	int 			i_begin;
+	int				height;
+	int				coord;
+	int				j_begin;
+	int				i_begin;
 	unsigned int	color;
-	
+
 	i_begin = i;
 	j_begin = j;
 	i = (i < 0) ? -1 : i;
@@ -84,16 +85,15 @@ static void			draw_sprite(t_vars *vars, int sprite_size, int i, int j)
 	}
 }
 
-void			check_sprites(t_vars *vars)
+void		check_sprites(t_vars *vars)
 {
-	t_sprite 	*cur_elem;
+	t_sprite	*cur_elem;
 	double		spr_abs_angle;
-	double 		sprite_size;
-	int 		h_offset;
-	int 		w_offset;
+	double		sprite_size;
+	int			h_offset;
+	int			w_offset;
 
-	sort_sprites(vars);
-	cur_elem = vars->lst_head;
+	sort_sprites(vars, &cur_elem);
 	while (cur_elem != NULL)
 	{
 		spr_abs_angle = atan2(cur_elem->y - vars->player->y_pos, cur_elem->x
@@ -102,7 +102,8 @@ void			check_sprites(t_vars *vars)
 			spr_abs_angle -= 2 * M_PI;
 		while (spr_abs_angle - vars->player->pov < -M_PI)
 			spr_abs_angle += 2 * M_PI;
-		sprite_size = sprite_scale * vars->pars->res_y / cur_elem->distance;
+		sprite_size = sprite_scale * ((double)vars->pars->res_x /
+		(double)vars->pars->res_y) * vars->pars->res_y / cur_elem->distance;
 		vars->dst[vars->pars->res_x] = cur_elem->distance;
 		vars->map->texture_scale = 64 / (double)sprite_size;
 		h_offset = (spr_abs_angle - vars->player->pov) * (vars->pars->res_x) /

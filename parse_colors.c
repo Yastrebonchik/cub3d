@@ -12,6 +12,29 @@
 
 #include "cub3d.h"
 
+static int	get_color(char *text)
+{
+	int color;
+	int i;
+
+	i = 0;
+	while (ft_isdigit(text[i]) == 1)
+		i++;
+	if (i > 3)
+	{
+		ft_putendl_fd("Error\nInvalid color config", 1);
+		exit(1);
+	}
+	i = 0;
+	if (ft_isdigit(text[i]) == 0)
+	{
+		ft_putendl_fd("Error\nInvalid color config", 1);
+		exit(1);
+	}
+	color = ft_atoi(&(text[i]));
+	return (color);
+}
+
 static void	insert_color(char **color, char *r, char *g, char *b)
 {
 	if ((ft_strlen(r)) == 1)
@@ -65,15 +88,15 @@ int			itoa_color_base_16(char *text, int i, t_pars *pars, char type)
 	int		c;
 	int		flag;
 
-	a = ft_atoi(&(text[i]));
+	a = get_color(&(text[i]));
 	while (ft_isdigit(text[i]) == 1)
 		i++;
 	flag = (text[i++] != ',') ? 1 : 0;
-	b = ft_atoi(&(text[i]));
+	b = get_color(&(text[i]));
 	while (ft_isdigit(text[i]) == 1)
 		i++;
 	flag = (text[i++] != ',') ? 1 : flag;
-	c = ft_atoi(&(text[i]));
+	c = get_color(&(text[i]));
 	flag = (a > 255 || b > 255 || c > 255) ? 1 : flag;
 	flag = (ft_isdigit(text[i]) == 1) ? flag : 1;
 	while (ft_isdigit(text[i]) == 1)

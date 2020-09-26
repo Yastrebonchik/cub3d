@@ -12,8 +12,7 @@
 
 #include "cub3d.h"
 
-//Отнормировать
-t_pars		parser(char *filename)
+t_pars		parser(char *filename, t_vars *vars)
 {
 	int		fd;
 	int		gnl;
@@ -33,12 +32,9 @@ t_pars		parser(char *filename)
 	free(text);
 	text = ft_strdup(line);
 	free(line);
-	while (gnl != 0)
-	{
-		gnl = get_next_line(fd, &line);
+	while ((gnl = get_next_line(fd, &line)) != 0)
 		text_join_n(&text, &line, gnl);
-	}
-	pars.flag = args_error_management(text, &pars);
+	pars.flag = args_error_management(text, &pars, 0, vars);
 	free(text);
 	close(fd);
 	return (pars);

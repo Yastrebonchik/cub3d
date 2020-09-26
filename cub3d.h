@@ -12,9 +12,9 @@
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define rotation_angle M_PI / 30
+# define rotation_angle M_PI / 60
 # define scale 64
-# define sprite_scale 96
+# define sprite_scale 60
 # define speed 12
 #include <fcntl.h>
 #include <math.h>
@@ -28,6 +28,7 @@ typedef struct	s_pars
     int			flag;
     int			res_x;
     int			res_y;
+	char 		player_sight_side;
     char		*north_texture;
     char		*south_texture;
     char		*west_texture;
@@ -96,19 +97,19 @@ int		north_texture(char  *text, t_pars *pars, int i);
 int		south_texture(char  *text, t_pars *pars, int i);
 int		sprite_texture(char *text, t_pars *pars, int i);
 int		color_error_management(char *text, t_pars *pars, int i);
-int		resolution_error_managemnt(char *text, t_pars *pars);
-int		args_error_management(char *text, t_pars *pars);
+int		resolution_error_managemnt(char *text, t_pars *pars, t_vars *vars);
+int		args_error_management(char *text, t_pars *pars, int flag, t_vars *vars);
 int		file_error_management(int gnl, char *filename);
 int		check_validity(t_pars *pars);
 int		atoi_color_base_16(char *color);
 int		itoa_color_base_16(char *text, int i, t_pars *pars, char type);
 int 	my_mlx_get_color(t_data *data, int x, int y);
+int 	get_resolution(char *text, char res, t_vars *vars);
 char	*ft_itoabase(long long int nb, char type);
-t_pars	parser(char *filename);
+t_pars	parser(char *filename, t_vars *vars);
 double  vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map);
 double  horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *map);
 double  min_of_2_cub(double a, double b, t_vars *vars);
-double	min_of_2(double a, double b);
 void	put_image(t_vars *vars);
 void	move_forward(t_vars *vars);
 void	move_backward(t_vars *vars);
@@ -125,8 +126,11 @@ void	print_map(char **map);
 void	draw_map(t_vars *vars, t_data *img, char **map);
 void	check_side_of_world(t_vars *vars, double current_ray);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	map_validity_check(t_pars *pars, t_player *player);
 void	sprite_list_init(t_vars *vars);
+void	empty_line_check(char *text, int flag);
 void	print_textures(t_vars *vars);
+void	walls_surrounding(char **map, char side);
 void	check_sprites(t_vars *vars);
 
 #endif

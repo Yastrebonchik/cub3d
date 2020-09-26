@@ -28,11 +28,12 @@ LIBFT_DIR = libft/
 
 MLX_DIR = mlx/
 
-MLX = libmlx.a
+MLX = libmlx.dylib
 
 SOURCES = main.c parser.c parse_textures.c utils.c itoabase.c parse_colors.c \
-errors_management.c draw_2d_map.c horizontal_raycaster.c vertical_raycaster.c put_image.c \
+errors_management.c horizontal_raycaster.c vertical_raycaster.c put_image.c \
 hooks_manage.c draw_texture.c color_funcs.c map_utils.c sprite_list_init.c draw_sprites.c \
+map_validity_check.c map_walls_surrounding.c errors_management_utils.c
 
 O_FILES = $(SOURCES:.c=.o)
 
@@ -46,8 +47,7 @@ $(NAME): $(O_FILES)
 	cp $(LIBFT_DIR)$(LIBFT) .
 	make -C $(MLX_DIR)
 	cp $(MLX_DIR)$(MLX) .
-	$(CC) $(FLAGS) $(O_FILES) -L. -lft 	-L. -lmlx \
-	-framework OpenGL -framework AppKit -o cub3d
+	$(CC) $(FLAGS) $(O_FILES) -L. -lft 	-L. -lmlx -framework OpenGL -framework AppKit -o cub3d
 
 clean:
 	rm -f *.o
@@ -59,6 +59,6 @@ fclean: clean
 	rm -f *.a
 	make -C $(LIBFT_DIR) fclean
 	make -C $(MLX_DIR) clean
-	rm -f mlx/libmlx.a
+	rm -f mlx/libmlx.dylib
 
 re: fclean all

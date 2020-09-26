@@ -154,3 +154,5 @@ void			print_textures(t_vars *vars)
 		// }
 	}
 }
+
+//void 			player_init

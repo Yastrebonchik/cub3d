@@ -26,7 +26,9 @@ void		move_forward(t_vars *vars)
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
 	position_detection((int)(x), (int)(y), &line, &column);
-	if (vars->map->map[line][column] != '1')
+	if (vars->map->map[line][column] != '1'
+	&& vars->map->map[line][column] != '\0'
+	&& vars->map->map[line][column] != ' ')
 	{
 		vars->player->x_pos = (int)x;
 		vars->player->y_pos = (int)y;
@@ -48,7 +50,9 @@ void		move_backward(t_vars *vars)
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
 	position_detection((int)(x), (int)(y), &line, &column);
-	if (vars->map->map[line][column] != '1')
+	if (vars->map->map[line][column] != '1'
+	&& vars->map->map[line][column] != '\0'
+	&& vars->map->map[line][column] != ' ')
 	{
 		vars->player->x_pos = (int)x;
 		vars->player->y_pos = (int)y;
@@ -72,7 +76,9 @@ void		move_left(t_vars *vars)
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
 	position_detection((int)(x), (int)(y), &line, &column);
-	if (vars->map->map[line][column] != '1')
+	if (vars->map->map[line][column] != '1'
+	&& vars->map->map[line][column] != '\0'
+	&& vars->map->map[line][column] != ' ')
 	{
 		vars->player->x_pos = (int)x;
 		vars->player->y_pos = (int)y;
@@ -96,7 +102,9 @@ void		move_right(t_vars *vars)
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
 	position_detection((int)(x), (int)(y), &line, &column);
-	if (vars->map->map[line][column] != '1')
+	if (vars->map->map[line][column] != '1'
+	&& vars->map->map[line][column] != '\0'
+	&& vars->map->map[line][column] != ' ')
 	{
 		vars->player->x_pos = (int)x;
 		vars->player->y_pos = (int)y;
