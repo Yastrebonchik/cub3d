@@ -78,6 +78,7 @@ typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
     char        flag;
+    char 		screenshot_flag;
 	double		*dst;
 	t_data		*data;
 	t_data 		*north_texture;
@@ -131,6 +132,7 @@ void	sprite_list_init(t_vars *vars);
 void	empty_line_check(char *text, int flag);
 void	print_textures(t_vars *vars);
 void	walls_surrounding(char **map, char side);
+void 	create_screenshot(t_vars *vars, char *argv);
 void	check_sprites(t_vars *vars);
 
 #endif

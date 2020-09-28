@@ -33,7 +33,7 @@ MLX = libmlx.dylib
 SOURCES = main.c parser.c parse_textures.c utils.c itoabase.c parse_colors.c \
 errors_management.c horizontal_raycaster.c vertical_raycaster.c put_image.c \
 hooks_manage.c draw_texture.c color_funcs.c map_utils.c sprite_list_init.c draw_sprites.c \
-map_validity_check.c map_walls_surrounding.c errors_management_utils.c
+map_validity_check.c map_walls_surrounding.c errors_management_utils.c make_screenshot.c
 
 O_FILES = $(SOURCES:.c=.o)
 

@@ -73,5 +73,7 @@ void	put_image(t_vars *vars)
 			current_ray = 2 * M_PI + current_ray;
 	}
 	check_sprites(vars);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
+	mlx_do_sync(vars->mlx);
+	if (vars->screenshot_flag != 1)
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->data->img, 0, 0);
 }

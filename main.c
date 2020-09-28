@@ -77,6 +77,8 @@ int			main(int argc, char **argv)
 	sprite_list_init(&vars);
     put_textures(&vars);
 	print_textures(&vars);
+	if (argc == 3)
+		create_screenshot(&vars, argv[2]);
 	put_image(&vars);
     mlx_hook(vars.win, 2, 1L<<0, hooks_manage, &vars);
 	//mlx_hook(vars.win, 17, 0, destroy_window, &vars);
