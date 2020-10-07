@@ -6,7 +6,7 @@
 #    By: alexander <alexander@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/17 17:19:48 by kcedra            #+#    #+#              #
-#    Updated: 2020/09/21 13:13:15 by alexander        ###   ########.fr        #
+#    Updated: 2020/09/28 23:41:42 by alexander        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LIBFT_DIR = libft/
 
 MLX_DIR = mlx/
 
-MLX = libmlx.dylib
+MLX = libmlx.a
 
 SOURCES = main.c parser.c parse_textures.c utils.c itoabase.c parse_colors.c \
 errors_management.c horizontal_raycaster.c vertical_raycaster.c put_image.c \
@@ -59,6 +59,6 @@ fclean: clean
 	rm -f *.a
 	make -C $(LIBFT_DIR) fclean
 	make -C $(MLX_DIR) clean
-	rm -f mlx/libmlx.dylib
+	rm -f mlx/libmlx.a
 
 re: fclean all

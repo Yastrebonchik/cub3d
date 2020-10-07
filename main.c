@@ -6,13 +6,13 @@
 /*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 17:37:33 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/24 22:10:48 by alexander        ###   ########.fr       */
+/*   Updated: 2020/10/04 17:14:20 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//Нужно отнормировать main.c put_image.c raycasterы utils.c
+//Нужно отнормировать main.c raycasterы utils.c
 static int	hooks_manage(int keycode, t_vars *vars)
 {
 	if (keycode == 53)
@@ -32,12 +32,19 @@ static int	hooks_manage(int keycode, t_vars *vars)
 	return (0);
 }
 
-// static int 	destroy_window(int keycode, t_vars *vars)
-// {
-// 	keycode = 3;
-//     mlx_destroy_window(vars->mlx, vars->win);
-// 	exit(0);
-// }
+static int 	destroy_window(t_vars *vars)
+{
+    mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+}
+
+static void	dst_array_allocate(t_vars *vars, t_pars *pars)
+{
+	double		*array;
+
+	array = (double*)malloc(sizeof(double) * (pars->res_x + 1));
+	vars->dst = array;
+}
 
 int			main(int argc, char **argv)
 {
@@ -46,7 +53,6 @@ int			main(int argc, char **argv)
     t_pars  	pars;
     t_player 	player;
     t_map		map;
-	double		*array;
 
 	if (argc != 2 && argc != 3)
     {
@@ -57,19 +63,15 @@ int			main(int argc, char **argv)
     pars = parser(argv[1], &vars);
     if (pars.flag == 1)
         exit (1);
-  	//printf("Params flag = %d\n", pars.flag);
-    //printf("Res_x = %d\nRes_y = %d\nNorth_texture - %s\nSouth_texture - %s\nEast_texture - %s\nWest_texture - %s\nSprite_texture - %s\nFloor_color = %s\nCeiling_color= %s\n",
-	//pars.res_x, pars.res_y, pars.north_texture, pars.south_texture, pars.east_texture, pars.west_texture, pars.sprite_texture, pars.floor_color, pars.ceiling_color);
-    //print_map(pars.map);
     map_validity_check(&pars, &player);
     vars.win = mlx_new_window(vars.mlx, pars.res_x, pars.res_y, "CUB3D");
     img.img = mlx_new_image(vars.mlx, pars.res_x, pars.res_y);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
     &img.endian);
+	//printf("%p\n", img.img);
     map.map = pars.map;
     limit_counter(&map);
-	array = (double*)malloc(sizeof(double) * (pars.res_x + 1));
-	vars.dst = array;
+	dst_array_allocate(&vars, &pars);
     vars.player = &player;
     vars.data = &img;
     vars.pars = &pars;
@@ -81,7 +83,7 @@ int			main(int argc, char **argv)
 		create_screenshot(&vars, argv[2]);
 	put_image(&vars);
     mlx_hook(vars.win, 2, 1L<<0, hooks_manage, &vars);
-	//mlx_hook(vars.win, 17, 0, destroy_window, &vars);
+	mlx_hook(vars.win, 17, 1L<<5, destroy_window, &vars);
     mlx_loop(vars.mlx);
     return (0);
 }

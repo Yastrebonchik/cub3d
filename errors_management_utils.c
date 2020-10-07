@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_management_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 20:44:19 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/26 20:44:29 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/09/28 23:41:18 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int		get_resolution(char *text, char res, t_vars *vars)
 	i = 0;
 	while (ft_isdigit(text[i]) == 1)
 		i++;
-	mlx_get_screen_size(vars->mlx, &x, &y);
+	vars->flag = 3;
+	x = 1440;
+	y = 900;
+	//mlx_get_screen_size(vars->mlx, &x, &y);
 	if (i > 4)
 		resolution = (res == 'x') ? x : y;
 	else

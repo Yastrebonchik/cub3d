@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validity_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 15:46:00 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/26 15:46:01 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/10/04 16:56:04 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,20 @@ void		empty_line_check(char *text, int flag)
 	int i;
 	int	strlen;
 
-	i = 0;
-	while (text[i] != '\0')
+	i = -1;
+	while (text[++i] != '\0')
 	{
 		strlen = 0;
 		flag = 0;
-		while (text[i++] != '\n' && text[i] != '\0')
+		while (text[i] != '\n' && text[i] != '\0')
 		{
 			flag = (text[i] == ' ') ? flag + 1 : flag;
 			strlen++;
+			i++;
 		}
 		if (flag == strlen)
 		{
-			while (text[i++] != '\0')
+			while (text[++i] != '\0')
 			{
 				if (text[i] != '\n' && text[i] != ' ')
 				{

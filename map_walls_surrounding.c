@@ -3,25 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   map_walls_surrounding.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/26 19:47:05 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/26 19:47:08 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/10/04 17:12:20 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	check_first_and_last(char **map, int line, int *column)
+static void	check_first_and_last(char **map, int line)
 {
-	while (map[line][*column] != '\0')
+	int	column;
+
+	column = 0;
+	while (map[line][column] != '\0')
 	{
-		if (map[line][*column] != '1' && map[line][*column] != ' ')
+		if (map[line][column] != '1' && map[line][column] != ' ')
 		{
 			ft_putendl_fd("Error\nMap is not surrounded by walls", 1);
 			exit(1);
 		}
-		(*column)++;
+		column++;
 	}
 }
 
@@ -61,17 +64,14 @@ void		walls_surrounding(char **map, char side)
 
 	line = 0;
 	column = 0;
-	check_first_and_last(map, line, &column);
+	check_first_and_last(map, line);
 	line++;
 	while (map[line + 1] != NULL)
 	{
 		column = 0;
 		while (map[line][column] != '\0')
-		{
 			check_surrounding(map, side, line, &column);
-		}
 		line++;
 	}
-	column = 0;
-	check_first_and_last(map, line, &column);
+	check_first_and_last(map, line);
 }

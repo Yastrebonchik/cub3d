@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcedra <kcedra@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alexander <alexander@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 20:12:37 by kcedra            #+#    #+#             */
-/*   Updated: 2020/09/04 19:43:34 by kcedra           ###   ########.fr       */
+/*   Updated: 2020/10/04 17:12:43 by alexander        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_pars		parser(char *filename, t_vars *vars)
 	free(line);
 	while ((gnl = get_next_line(fd, &line)) != 0)
 		text_join_n(&text, &line, gnl);
+	text_join_n(&text, &line, gnl);
 	pars.flag = args_error_management(text, &pars, 0, vars);
 	free(text);
 	close(fd);
