@@ -74,6 +74,13 @@ typedef struct	s_player
 	double 		pov;
 }				t_player;
 
+typedef struct	s_lin_col
+{
+	int		line;
+	int		column;
+	double	distance;
+}				t_lin_col;
+
 typedef struct	s_vars {
 	void		*mlx;
 	void		*win;
@@ -97,6 +104,7 @@ int		east_texture(char  *text, t_pars *pars, int i);
 int		north_texture(char  *text, t_pars *pars, int i);
 int		south_texture(char  *text, t_pars *pars, int i);
 int		sprite_texture(char *text, t_pars *pars, int i);
+int		line_counter(double *y_pos, double y_cur_pos, double ray_angle, int result);
 int		color_error_management(char *text, t_pars *pars, int i);
 int		resolution_error_managemnt(char *text, t_pars *pars, t_vars *vars);
 int		args_error_management(char *text, t_pars *pars, int flag, t_vars *vars);
@@ -111,6 +119,8 @@ t_pars	parser(char *filename, t_vars *vars);
 double  vertical_raycaster(int x_pos, double y_pos, double ray_angle, t_map *map);
 double  horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *map);
 double  min_of_2_cub(double a, double b, t_vars *vars);
+double 	left_half_end(t_lin_col *lin_col, t_map	*map, double *y_cur_pos, double ray_angle);
+double	right_half_end(t_lin_col *lin_col, t_map *map, double *y_cur_pos, double ray_angle);
 void	put_image(t_vars *vars);
 void	move_forward(t_vars *vars);
 void	move_backward(t_vars *vars);
@@ -124,13 +134,13 @@ void	put_textures(t_vars *vars);
 void	position_detection(int x, int y, int *line, int *column);
 void	draw_texture(t_vars *vars, int i, int *j, int height_of_wall);
 void	print_map(char **map);
-void	draw_map(t_vars *vars, t_data *img, char **map);
 void	check_side_of_world(t_vars *vars, double current_ray);
+void	left_half_beg(t_lin_col *lin_col, int x_cur_pos, double *y_cur_pos, double ray_angle);
+void	right_half_beg(t_lin_col *lin_col, int x_cur_pos, double *y_cur_pos, double ray_angle);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	map_validity_check(t_pars *pars, t_player *player);
 void	sprite_list_init(t_vars *vars);
-void	empty_line_check(char *text, int flag);
-void	print_textures(t_vars *vars);
+void	empty_line_check(char *text, int flag, int i);
 void	walls_surrounding(char **map, char side);
 void 	create_screenshot(t_vars *vars, char *argv);
 void	check_sprites(t_vars *vars);

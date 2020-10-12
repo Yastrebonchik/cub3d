@@ -23,9 +23,7 @@ int		get_resolution(char *text, char res, t_vars *vars)
 	while (ft_isdigit(text[i]) == 1)
 		i++;
 	vars->flag = 3;
-	x = 1440;
-	y = 900;
-	//mlx_get_screen_size(vars->mlx, &x, &y);
+	mlx_get_screen_size(vars->mlx, &x, &y);
 	if (i > 4)
 		resolution = (res == 'x') ? x : y;
 	else

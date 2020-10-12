@@ -12,7 +12,8 @@
 
 #include "cub3d.h"
 
-static void 		set_size(unsigned char **str, unsigned int size, int i, int len)
+static void				set_size(unsigned char **str, unsigned int size, int i,
+int len)
 {
 	int	begin;
 
@@ -25,10 +26,10 @@ static void 		set_size(unsigned char **str, unsigned int size, int i, int len)
 	}
 }
 
-static unsigned char *bmp_fileheader(t_vars *vars)
+static unsigned char	*bmp_fileheader(t_vars *vars)
 {
 	unsigned char	*array;
-	int 			size;
+	int				size;
 
 	array = (unsigned char*)malloc(sizeof(unsigned char) * 14);
 	array[0] = 66;
@@ -42,9 +43,9 @@ static unsigned char *bmp_fileheader(t_vars *vars)
 	return (array);
 }
 
-static unsigned char *bmp_infoheader(t_vars *vars)
+static unsigned char	*bmp_infoheader(t_vars *vars)
 {
-	unsigned char 	*array;
+	unsigned char	*array;
 	int				size;
 
 	size = 40;
@@ -60,13 +61,13 @@ static unsigned char *bmp_infoheader(t_vars *vars)
 	return (array);
 }
 
-static unsigned char *bmp_pixeldata(t_vars *vars, int color)
+static unsigned char	*bmp_pixeldata(t_vars *vars, int color)
 {
 	unsigned char	*array;
 	int				i;
-	int 			j;
-	int 			k;
-	int 			size;
+	int				j;
+	int				k;
+	int				size;
 
 	i = vars->pars->res_y - 1;
 	k = 0;
@@ -86,7 +87,7 @@ static unsigned char *bmp_pixeldata(t_vars *vars, int color)
 	return (array);
 }
 
-void 		create_screenshot(t_vars *vars, char *argv)
+void					create_screenshot(t_vars *vars, char *argv)
 {
 	unsigned char	*file_header;
 	unsigned char	*info_header;

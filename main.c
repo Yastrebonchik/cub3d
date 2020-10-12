@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-//Нужно отнормировать main.c raycasterы utils.c
+//Нужно отнормировать main.c raycasterы
 static int	hooks_manage(int keycode, t_vars *vars)
 {
 	if (keycode == 53)
@@ -78,7 +78,6 @@ int			main(int argc, char **argv)
 	vars.map = &map;
 	sprite_list_init(&vars);
     put_textures(&vars);
-	print_textures(&vars);
 	if (argc == 3)
 		create_screenshot(&vars, argv[2]);
 	put_image(&vars);

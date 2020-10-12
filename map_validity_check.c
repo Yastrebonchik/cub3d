@@ -55,12 +55,10 @@ static void	player_check(t_pars *pars, t_player *player, int flag)
 	}
 }
 
-void		empty_line_check(char *text, int flag)
+void		empty_line_check(char *text, int flag, int i)
 {
-	int i;
 	int	strlen;
 
-	i = -1;
 	while (text[++i] != '\0')
 	{
 		strlen = 0;

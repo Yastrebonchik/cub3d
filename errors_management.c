@@ -145,6 +145,6 @@ int			args_error_management(char *text, t_pars *pars, int flag,
 		i++;
 	while (text[i - 1] != '\n')
 		i--;
-	empty_line_check(&(text[i]), 0);
+	empty_line_check(&(text[i]), 0, -1);
 	return (((pars->map = ft_split(&(text[i]), '\n')) == NULL) ? 1 : flag);
 }

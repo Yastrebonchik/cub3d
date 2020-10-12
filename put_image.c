@@ -18,9 +18,9 @@ static double	get_distance(t_vars *vars, double current_ray)
 	(current_ray <= 3 * M_PI_2 + M_PI / 3 / vars->pars->res_x))
 		return (horizontal_raycaster(vars->player->x_pos, vars->
 		player->y_pos, 3 * M_PI_2, vars->map));
-	else if ((current_ray >= M_PI - M_PI / 3 / vars->pars->res_x) && 
+	else if ((current_ray >= M_PI - M_PI / 3 / vars->pars->res_x) &&
 	current_ray <= M_PI + M_PI / 3 / vars->pars->res_x)
-    {
+	{
 		vars->flag = 'E';
 		return (vertical_raycaster(vars->player->x_pos, vars->player->y_pos,
 		M_PI, vars->map));
@@ -44,7 +44,7 @@ static void		paint_column(t_vars *vars, int i, int height_of_wall)
 {
 	int		j;
 	int		color;
-	
+
 	j = 0;
 	color = atoi_color_base_16(vars->pars->ceiling_color);
 	if (height_of_wall > vars->pars->res_y)
@@ -76,14 +76,14 @@ static void		paint_image(t_vars *vars, double current_ray)
 	{
 		distance = get_distance(vars, current_ray);
 		if (distance == 0)
-			break;
+			break ;
 		vars->dst[i] = distance;
 		distance = distance * cos(-(M_PI / 6) + i * (M_PI / 3 /
 		vars->pars->res_x));
 		height_of_wall = scale / distance * (vars->pars->res_x /
 		(2 * tan(M_PI / 6)));
-        check_side_of_world(vars, current_ray);
-		vars->map->texture_scale = 64/(double)height_of_wall;
+		check_side_of_world(vars, current_ray);
+		vars->map->texture_scale = 64 / (double)height_of_wall;
 		paint_column(vars, i, height_of_wall);
 		i++;
 		current_ray += M_PI / 3 / vars->pars->res_x;
@@ -96,7 +96,7 @@ static void		paint_image(t_vars *vars, double current_ray)
 
 void			put_image(t_vars *vars)
 {
-	double 	current_ray;
+	double	current_ray;
 
 	current_ray = vars->player->pov - M_PI / 6;
 	if (current_ray <= 0)

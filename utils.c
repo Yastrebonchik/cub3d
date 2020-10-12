@@ -14,8 +14,8 @@
 
 void		text_join_n(char **text, char **line, int gnl)
 {
-	char    *collat;
-	int     i;
+	char	*collat;
+	int		i;
 
 	i = 0;
 	collat = ft_strjoin(*text, *line);
@@ -59,10 +59,10 @@ int			check_validity(t_pars *pars)
 	&& (pars->ceiling_color != NULL))
 		return (1);
 	else
-		return (0);	
+		return (0);
 }
 
-double		min_of_2_cub(double a, double b, t_vars * vars)
+double		min_of_2_cub(double a, double b, t_vars *vars)
 {
 	if (a < b)
 		vars->flag = 'E';
@@ -71,88 +71,16 @@ double		min_of_2_cub(double a, double b, t_vars * vars)
 	return ((a < b) ? a : b);
 }
 
-void			put_textures(t_vars *vars)
+void		check_side_of_world(t_vars *vars, double current_ray)
 {
-	t_data	*north_texture;
-	t_data	*south_texture;
-	t_data	*west_texture;
-	t_data	*east_texture;
-	t_data 	*sprite_texture;
-	
-	north_texture = (t_data*)malloc(sizeof(t_data));
-	south_texture = (t_data*)malloc(sizeof(t_data));
-	east_texture = (t_data*)malloc(sizeof(t_data));
-	west_texture = (t_data*)malloc(sizeof(t_data));
-	sprite_texture = (t_data*)malloc(sizeof(t_data));
-	(*north_texture).img = mlx_xpm_file_to_image(vars->mlx, vars->
-	pars->north_texture, &((*north_texture).width), &((*north_texture).height));
-	(*south_texture).img = mlx_xpm_file_to_image(vars->mlx, vars->
-	pars->south_texture, &((*south_texture).width), &((*south_texture).height));
-	(*east_texture).img = mlx_xpm_file_to_image(vars->mlx, vars->
-	pars->east_texture, &((*east_texture).width), &((*east_texture).height));
-	(*west_texture).img = mlx_xpm_file_to_image(vars->mlx, vars->
-	pars->west_texture, &((*west_texture).width), &((*west_texture).height));
-	(*sprite_texture).img = mlx_xpm_file_to_image(vars->mlx, vars->
-	pars->sprite_texture, &((*sprite_texture).width), &((*sprite_texture).height));
-	vars->north_texture = north_texture;
-	vars->south_texture = south_texture;
-	vars->east_texture = east_texture;
-	vars->west_texture = west_texture;
-	vars->sprite_texture = sprite_texture;
-	if ((*north_texture).img == NULL || (*south_texture).img == NULL
-	|| (*east_texture).img == NULL || (*west_texture).img == NULL
-	|| sprite_texture->img == NULL)
+	if (vars->flag == 'E')
 	{
-		ft_putendl_fd("Error\nInvalid texture path file", 1);
-		exit(1);
+		if (current_ray >= (M_PI_2) && current_ray <= 3 * M_PI_2)
+			vars->flag = 'W';
 	}
-	vars->north_texture->addr = mlx_get_data_addr(vars->north_texture->img,
-	&(vars->north_texture->bits_per_pixel), &(vars->north_texture->line_length), &vars->north_texture->endian);
-	vars->south_texture->addr = mlx_get_data_addr(vars->south_texture->img,
-	&(vars->south_texture->bits_per_pixel), &(vars->south_texture->line_length), &(vars->south_texture->endian));
-	vars->east_texture->addr = mlx_get_data_addr(vars->east_texture->img,
-	&(vars->east_texture->bits_per_pixel), &(vars->east_texture->line_length), &(vars->east_texture->endian));
-	vars->west_texture->addr = mlx_get_data_addr(vars->west_texture->img,
-	&(vars->west_texture->bits_per_pixel), &(vars->west_texture->line_length), &(vars->west_texture->endian));
-	vars->sprite_texture->addr = mlx_get_data_addr(vars->sprite_texture->img,
-	&(vars->sprite_texture->bits_per_pixel), &(vars->sprite_texture->line_length), &(vars->sprite_texture->endian));
-}
-
-void            check_side_of_world(t_vars *vars, double current_ray)
-{
-    if (vars->flag == 'E')
-    {
-        if (current_ray >= (M_PI_2) && current_ray <= 3 * M_PI_2)
-            vars->flag = 'W';
-    }
-    else
-    {
-        if (current_ray > 0 && current_ray < M_PI)
-            vars->flag = 'S';
-    }
-}
-
-void			print_textures(t_vars *vars)
-{
-	t_sprite	*cur_elem;
-	//t_sprite	*head;
-	
-	if (vars->lst_head != NULL)
+	else
 	{
-		cur_elem = vars->lst_head;
-		while (cur_elem != NULL)
-		{
-			//printf("X = %d and y = %d\n", cur_elem->x, cur_elem->y);
-			cur_elem = cur_elem->next;
-		}
-		// cur_elem = vars->lst_head;
-		// while (cur_elem != NULL)
-		// {
-		// 	head = cur_elem->next;
-		// 	free(cur_elem);
-		// 	cur_elem = head;
-		// }
+		if (current_ray > 0 && current_ray < M_PI)
+			vars->flag = 'S';
 	}
 }
-
-//void 			player_init

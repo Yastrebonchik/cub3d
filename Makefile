@@ -28,12 +28,13 @@ LIBFT_DIR = libft/
 
 MLX_DIR = mlx/
 
-MLX = libmlx.a
+MLX = libmlx.dylib
 
 SOURCES = main.c parser.c parse_textures.c utils.c itoabase.c parse_colors.c \
 errors_management.c horizontal_raycaster.c vertical_raycaster.c put_image.c \
 hooks_manage.c draw_texture.c color_funcs.c map_utils.c sprite_list_init.c draw_sprites.c \
-map_validity_check.c map_walls_surrounding.c errors_management_utils.c make_screenshot.c
+map_validity_check.c map_walls_surrounding.c errors_management_utils.c make_screenshot.c \
+textures_init.c vertical_raycaster_utils.c
 
 O_FILES = $(SOURCES:.c=.o)
 
@@ -59,6 +60,6 @@ fclean: clean
 	rm -f *.a
 	make -C $(LIBFT_DIR) fclean
 	make -C $(MLX_DIR) clean
-	rm -f mlx/libmlx.a
+	rm -f $(MLX_DIR)$(MLX)
 
 re: fclean all
