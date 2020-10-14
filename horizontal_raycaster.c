@@ -12,14 +12,14 @@
 
 #include "cub3d.h"
 
-static int	column_counter(double *x_pos, double x_cur_pos, double ray_angle)
+int				column_counter(double *x_pos, double x_cur_pos,
+double ray_angle, int result)
 {
-	int		result;
-	int 	fractional;
+	int		fractional;
 
-	result = 0;
 	fractional = (int)(*x_pos);
-	if ((ray_angle > 0 && ray_angle < M_PI_2) || (ray_angle > 3 * M_PI_2 && ray_angle < 2 * M_PI))
+	if ((ray_angle > 0 && ray_angle < M_PI_2) || (ray_angle > 3 * M_PI_2
+	&& ray_angle < 2 * M_PI))
 	{
 		while (fractional < x_cur_pos)
 		{
@@ -28,7 +28,8 @@ static int	column_counter(double *x_pos, double x_cur_pos, double ray_angle)
 			fractional++;
 		}
 	}
-	else if ((ray_angle > M_PI_2 && ray_angle < M_PI) || (ray_angle > M_PI && ray_angle < 3 * M_PI_2))
+	else if ((ray_angle > M_PI_2 && ray_angle < M_PI) || (ray_angle > M_PI
+	&& ray_angle < 3 * M_PI_2))
 	{
 		while (fractional > x_cur_pos)
 		{
@@ -41,112 +42,71 @@ static int	column_counter(double *x_pos, double x_cur_pos, double ray_angle)
 	return (result);
 }
 
-double		horizontal_raycaster(double x_pos, int y_pos, double ray_angle, t_map *map)
+static double	three_m_pi_case(t_lin_col *lin_col, t_map *map, int y_cur_pos)
 {
-	int 		line;
-	int 		column;
-	int			y_cur_pos;
+	double	distance;
+	int		y_pos;
+
+	distance = 0;
+	y_pos = y_cur_pos;
+	while (y_cur_pos % 64 != 0)
+		y_cur_pos--;
+	distance += ft_abs(y_cur_pos - y_pos);
+	lin_col->line--;
+	while ((map->map)[lin_col->line][lin_col->column] != '1')
+	{
+		distance += 64;
+		lin_col->line--;
+	}
+	return (distance);
+}
+
+static double	m_pi_case(t_lin_col *lin_col, t_map *map, int y_cur_pos)
+{
+	double	distance;
+	int		y_pos;
+
+	distance = 0;
+	y_pos = y_cur_pos;
+	while (y_cur_pos % 64 != 0)
+		y_cur_pos++;
+	distance += ft_abs(y_cur_pos - y_pos);
+	if (y_cur_pos != y_pos)
+		lin_col->line++;
+	while ((map->map)[lin_col->line][lin_col->column] != '1')
+	{
+		distance += 64;
+		lin_col->line++;
+	}
+	return (distance);
+}
+
+double			horizontal_raycaster(double x_pos, int y_pos, double ray_angle,
+t_map *map)
+{
+	t_lin_col	lin_col;
 	double		x_cur_pos;
 	double		distance;
 
 	distance = 0;
-	position_detection(x_pos, y_pos, &line, &column);
+	position_detection((int)x_pos, y_pos, &(lin_col.line), &(lin_col.column));
 	x_cur_pos = x_pos;
-	y_cur_pos = y_pos;
-	if ((ray_angle > M_PI && ray_angle < 3 * M_PI_2) || (ray_angle > 3 * M_PI_2 && ray_angle < 2 * M_PI))
+	if ((ray_angle > M_PI && ray_angle < 3 * M_PI_2) || (ray_angle > 3 * M_PI_2
+	&& ray_angle < 2 * M_PI))
 	{
-		while (y_cur_pos % 64 != 0)
-			y_cur_pos--;
-		if (ray_angle > 3 * M_PI / 2)
-		{
-			x_cur_pos += ft_abs(y_pos - y_cur_pos) / (tan(2 * M_PI - ray_angle));
-			distance += ft_abs(y_pos - y_cur_pos) / (sin(2 * M_PI - ray_angle));
-		}
-		else
-		{
-			x_cur_pos -= ft_abs(y_pos - y_cur_pos) / (tan(ray_angle - M_PI));
-			distance += ft_abs(y_pos - y_cur_pos) / (sin(ray_angle - M_PI));
-		}
-		line--;
-		column += column_counter(&x_pos, x_cur_pos, ray_angle);
-		while(column > 0 && line > 0 && column < map->column_max && (map->map)[line][column] != '1')
-		{
-			y_cur_pos -= 64;
-			if (ray_angle > 3 * M_PI / 2)
-			{
-				x_cur_pos += 64 / (tan(2 * M_PI - ray_angle));
-				distance += 64 / (sin(2 * M_PI - ray_angle));
-			}
-			else
-			{
-				x_cur_pos -= 64 / (tan(ray_angle - M_PI));
-				distance += 64 / (sin(ray_angle - M_PI));
-			}
-			line--;
-			column += column_counter(&x_pos, x_cur_pos, ray_angle);
-		}
+		up_half_beg(&lin_col, y_pos, &x_cur_pos, ray_angle);
+		distance = up_half_end(&lin_col, map, &x_cur_pos, ray_angle);
 	}
-	else if ((ray_angle > 0 && ray_angle < M_PI_2) || (ray_angle > M_PI_2 && ray_angle < M_PI))
+	else if ((ray_angle > 0 && ray_angle < M_PI_2) || (ray_angle > M_PI_2
+	&& ray_angle < M_PI))
 	{
-		while (y_cur_pos % 64 != 0)
-			y_cur_pos++;
-		if (ray_angle > M_PI / 2)
-		{
-			x_cur_pos -= ft_abs(y_pos - y_cur_pos) / (tan(M_PI - ray_angle));
-			distance += ft_abs(y_pos - y_cur_pos) / (sin(M_PI - ray_angle));
-		}
-		else
-		{
-			x_cur_pos += ft_abs(y_pos - y_cur_pos) / (tan(ray_angle));
-			distance += ft_abs(y_pos - y_cur_pos) / (sin(ray_angle));
-		}
-		if (y_cur_pos != y_pos)
-			line++;
-		column += column_counter(&x_pos, x_cur_pos, ray_angle);
-		while(column > 0 && column < map->column_max && line > 0 && line < map->line_max && (map->map)[line][column] != '1')
-		{
-			y_cur_pos += 64;
-			if (ray_angle > M_PI / 2)
-			{
-				x_cur_pos -= 64 / (tan(M_PI - ray_angle));
-				distance += 64 / (sin(M_PI - ray_angle));
-			}
-			else
-			{
-				x_cur_pos += 64 / (tan(ray_angle));
-				distance += 64 / (sin(ray_angle));
-			}
-			line++;
-			column += column_counter(&x_pos, x_cur_pos, ray_angle);
-		}
+		down_half_beg(&lin_col, y_pos, &x_cur_pos, ray_angle);
+		distance = down_half_end(&lin_col, map, &x_cur_pos, ray_angle);
 	}
 	else if (ray_angle == 3 * M_PI_2)
-	{
-		while (y_cur_pos % 64 != 0)
-			y_cur_pos--;
-		distance += ft_abs(y_cur_pos - y_pos);
-			line--;
-		while((map->map)[line][column] != '1')
-		{
-			y_cur_pos -= 64;
-			distance += 64;
-			line--;
-		}
-	}
+		distance = three_m_pi_case(&lin_col, map, y_pos);
 	else if (ray_angle == M_PI_2)
-	{
-		while (y_cur_pos % 64 != 0)
-			y_cur_pos++;
-		distance += ft_abs(y_cur_pos - y_pos);
-		if (y_cur_pos != y_pos)
-			line++;
-		while((map->map)[line][column] != '1')
-		{
-			y_cur_pos += 64;
-			distance += 64;
-			line++;
-		}
-	}
+		distance = m_pi_case(&lin_col, map, y_pos);
 	map->coord_x = floor(x_cur_pos);
 	return (distance);
 }

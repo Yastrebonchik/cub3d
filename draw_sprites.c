@@ -102,7 +102,7 @@ void		check_sprites(t_vars *vars)
 			spr_abs_angle -= 2 * M_PI;
 		while (spr_abs_angle - vars->player->pov < -M_PI)
 			spr_abs_angle += 2 * M_PI;
-		sprite_size = sprite_scale * ((double)vars->pars->res_x /
+		sprite_size = SPRITE_SCALE * ((double)vars->pars->res_x /
 		(double)vars->pars->res_y) * vars->pars->res_y / cur_elem->distance;
 		vars->dst[vars->pars->res_x] = cur_elem->distance;
 		vars->map->texture_scale = 64 / (double)sprite_size;

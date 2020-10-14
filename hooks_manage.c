@@ -21,8 +21,8 @@ void		move_forward(t_vars *vars)
 
 	x = vars->player->x_pos;
 	y = vars->player->y_pos;
-	x += speed * cos(vars->player->pov);
-	y += speed * sin(vars->player->pov);
+	x += SPEED * cos(vars->player->pov);
+	y += SPEED * sin(vars->player->pov);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
 	position_detection((int)(x), (int)(y), &line, &column);
@@ -45,8 +45,8 @@ void		move_backward(t_vars *vars)
 
 	x = vars->player->x_pos;
 	y = vars->player->y_pos;
-	x += speed * cos(vars->player->pov + M_PI);
-	y += speed * sin(vars->player->pov + M_PI);
+	x += SPEED * cos(vars->player->pov + M_PI);
+	y += SPEED * sin(vars->player->pov + M_PI);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
 	position_detection((int)(x), (int)(y), &line, &column);
@@ -71,8 +71,8 @@ void		move_left(t_vars *vars)
 	x = vars->player->x_pos;
 	y = vars->player->y_pos;
 	ray = vars->player->pov - M_PI_2;
-	x += speed * cos(ray);
-	y += speed * sin(ray);
+	x += SPEED * cos(ray);
+	y += SPEED * sin(ray);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
 	position_detection((int)(x), (int)(y), &line, &column);
@@ -97,8 +97,8 @@ void		move_right(t_vars *vars)
 	x = vars->player->x_pos;
 	y = vars->player->y_pos;
 	ray = vars->player->pov + M_PI_2;
-	x += speed * cos(ray);
-	y += speed * sin(ray);
+	x += SPEED * cos(ray);
+	y += SPEED * sin(ray);
 	x = ceil(x) - x < x - floor(x) ? ceil(x) : floor(x);
 	y = ceil(y) - y < y - floor(y) ? ceil(y) : floor(y);
 	position_detection((int)(x), (int)(y), &line, &column);
@@ -115,9 +115,9 @@ void		move_right(t_vars *vars)
 void		rotation(t_vars *vars, int keycode)
 {
 	if (keycode == 123)
-		vars->player->pov -= rotation_angle;
+		vars->player->pov -= ROTATION_ANGLE;
 	else
-		vars->player->pov += rotation_angle;
+		vars->player->pov += ROTATION_ANGLE;
 	if (vars->player->pov >= 2 * M_PI)
 		vars->player->pov = vars->player->pov - 2 * M_PI;
 	else if (vars->player->pov <= 0)

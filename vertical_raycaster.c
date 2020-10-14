@@ -89,7 +89,7 @@ t_map *map)
 	double		distance;
 
 	distance = 0;
-	position_detection(x_pos, y_pos, &(lin_col.line), &(lin_col.column));
+	position_detection(x_pos, (int)y_pos, &(lin_col.line), &(lin_col.column));
 	y_cur_pos = y_pos;
 	if ((ray_angle > M_PI_2 && ray_angle < M_PI) || (ray_angle > M_PI &&
 	ray_angle < 3 * M_PI_2))

@@ -80,7 +80,7 @@ static void		paint_image(t_vars *vars, double current_ray)
 		vars->dst[i] = distance;
 		distance = distance * cos(-(M_PI / 6) + i * (M_PI / 3 /
 		vars->pars->res_x));
-		height_of_wall = scale / distance * (vars->pars->res_x /
+		height_of_wall = SCALE / distance * (vars->pars->res_x /
 		(2 * tan(M_PI / 6)));
 		check_side_of_world(vars, current_ray);
 		vars->map->texture_scale = 64 / (double)height_of_wall;
