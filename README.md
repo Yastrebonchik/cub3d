@@ -1,0 +1,1 @@
+Current project inspired with the one of the first FPS game (DOOM) and stands for creating a simple game engine using raycasting principle. User can create a map with corresponding setting via configfile and explore the map with player on it.
